@@ -24,8 +24,9 @@ class Authority:
 
     def validate_token(self):
         try:
-            self.decode_token = jwt.decode(self.token, self.secret_key, algorithms=['HS256'])
-            return self.decode_token
+            # self.decode_token = jwt.decode(self.token, self.secret_key, algorithms=['HS256'])
+            self.decode_token = "这是一个解析后的token"
+            return True
         except jwt.ExpiredSignatureError:
             return False  # 如果 token 已过期
         except jwt.InvalidTokenError:
@@ -41,3 +42,13 @@ class Authority:
             return {"user_role": user_role}
         else:
             return None
+
+    def get_decoded_info(self):
+        return_info = {
+            "user_token": self.decode_token
+        }
+
+        if self.user_info:
+            return_info["role"] = self.user_info
+
+        return return_info

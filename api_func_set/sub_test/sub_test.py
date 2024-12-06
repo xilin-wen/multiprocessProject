@@ -1,4 +1,3 @@
-import json
 from decoratorFunc.getFuncDict import get_func_dict
 
 data_hello = {"message": "Hello, world!"}
@@ -6,17 +5,30 @@ data_goodbye = {"message": "Goodbye, world!"}
 
 # 定义多个路由处理函数
 @get_func_dict('/hello', method='GET', token_required=False,)
-# @get_func_dict('/hello', method='GET', token_required=False, role_required=True)
-def handle_hello(self,ctx,data):
-    print("123456")
-    # self.send_response(200)
-    # self.send_header('Content-type', 'application/json')
-    # self.end_headers()
-    # self.wfile.write(json.dumps(data_hello).encode())
+def handle_hello(ctx, data):
+    print("ctx", ctx)
+    print("data", data)
+    body = {
+        "ctx": ctx,
+        "data": data
+    }
+    return {
+        "code": 200,
+        "message": "this is a message",
+        "body": body
+    }
 
-@get_func_dict('/goodbye')
-def handle_goodbye(self):
-    self.send_response(200)
-    self.send_header('Content-type', 'application/json')
-    self.end_headers()
-    self.wfile.write(json.dumps(data_goodbye).encode())
+@get_func_dict('/goodbye', method='POST')
+def handle_goodbye(ctx, data):
+    print("ctx", ctx)
+    print("data", data)
+    print("123456")
+    body = {
+        "ctx": ctx,
+        "data": data
+    }
+    return {
+        "code": 200,
+        "message": "this is a message",
+        "body": body
+    }
