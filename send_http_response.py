@@ -1,6 +1,6 @@
 import json  # 导入 JSON 模块
 
-def send_http_response(client_socket, status_code, status_message, headers=None, body=None):
+def send_http_response(client_socket, status_code = 200, status_message = "请求成功", headers=None, body=None):
     """
     构造并发送一个完整的 HTTP 响应。
 
@@ -38,12 +38,3 @@ def send_http_response(client_socket, status_code, status_message, headers=None,
     client_socket.sendall(response.encode())  # 发送响应的状态行和头部
     if body:
         client_socket.sendall(body)  # 发送响应体
-
-
-# 示例：使用该函数发送一个 404 响应
-def handle_not_found(client_socket):
-    body = {"错误": "路由错误，您当前访问的页面不存在"}
-    headers = {
-        "Content-Type": "application/json",
-    }
-    send_http_response(client_socket, 404, "Not Found", headers, body)

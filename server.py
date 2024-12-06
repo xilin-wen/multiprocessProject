@@ -5,6 +5,8 @@ from decoratorFunc.getFuncDict import route_handlers
 from send_http_response import send_http_response
 import importlib
 
+from user.authority import Authority
+
 
 class HTTPServer:
     def __init__(self, port, shared_queue):
@@ -37,7 +39,6 @@ class HTTPServer:
         try:
             # 处理客户端请求
             request = client_socket.recv(1024).decode()  # 接收请求数据最大长度为1024
-            print("request", request)
             if not request:
                 return  # 如果没有请求数据，直接返回
 
@@ -84,20 +85,25 @@ class HTTPServer:
             if is_validate_token:
                 # 从请求头中获取 Authorization 头部并提取 token
                 authorization = header_dict.get('Authorization', '')
-                print("authorization", authorization)
                 token = None
                 if authorization.startswith('Bearer '):
                     token = authorization[len('Bearer '):]  # 获取 Bearer 后面的 token
-                    print("token", token)
 
                 if token:
-                    token_validate_result = self.Authority(token, is_validate_role)
+                    token_validate_result = Authority(token, verify_identity = is_validate_role, verify_token = is_validate_token)
                     if not token_validate_result:
+                        # body = {"错误": "路由错误，您当前访问的页面不存在"}
+                        # headers = {
+                        #     "Content-Type": "application/json",
+                        # }
+                        # send_http_response(client_socket, 404, "Not Found", headers, body)
                         send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", headers)
                     else:
                         api_func(token_validate_result)
                 else:
                     send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", headers)
+            else:
+                api_func()
 
         finally:
             client_socket.close()  # 无论如何关闭客户端连接

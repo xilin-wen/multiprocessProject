@@ -9,7 +9,7 @@ class Authority:
         :param verify_token: 是否需要验证token
     """
 
-    def __init__(self, token: str = None, verify_identity: bool = True, verify_token: bool = True):
+    def __init__(self, token: str = None, *, verify_identity: bool = True, verify_token: bool = True):
         self.token = token
         self.secret_key = "pandage"
         self.verify_token = verify_token
