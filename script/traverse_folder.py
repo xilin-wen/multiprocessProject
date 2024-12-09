@@ -1,14 +1,18 @@
+"""
+文件描述: 在 main 函数中，执行该文件，动态引入 api_func_set 文件夹下的所有 api 函数
+
+创建者: 汐琳
+创建时间: 2024-12-06 16:23:22
+"""
 import os
 import importlib
 from pathlib import Path
-
 
 def import_all_functions_in_folder(folder_path):
     """
     动态导入指定文件夹及其子文件夹下的所有 Python 文件，排除 '__init__.py'。
     """
     folder = Path(folder_path)
-
     for py_file in folder.rglob('*.py'):
         # 排除 __init__.py 文件
         if py_file.name != '__init__.py':

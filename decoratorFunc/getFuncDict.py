@@ -1,12 +1,22 @@
+"""
+文件描述: api_func 函数的装饰器函数，用于在项目启动时获取所有 api 函数的基本信息，并且创建一个 route_handlers 字典用于存放这些信息
+
+创建者: 汐琳
+创建时间: 2024-12-06 16:25:48
+"""
 import os
 import inspect
 from pathlib import Path
-
+from typing import Literal
 # 存储所有路由的处理器
 route_handlers = {}
 
-
-def get_func_dict(path, method='GET', token_required=True, role_required=False):
+def get_func_dict(
+        path: str,
+        method:Literal["get", "post", "put", "delete", "GET", "POST", "PUT", "DELETE"]='GET',
+        token_required: bool=True,
+        role_required: bool=False
+):
     """
     路由装饰器，支持开启鉴权。
 
@@ -46,11 +56,10 @@ def get_func_dict(path, method='GET', token_required=True, role_required=False):
             route_handlers[path] = {}
 
         # 将当前路由的处理信息存储到 route_handlers 中
-        route_handlers[path][method] = {
+        route_handlers[path][method.upper()] = {
             "token_required": token_required,
             "role_required": role_required,
-            "module": module_path,
-            "func": func,  # 将处理函数存储到对应的请求方法下
+            "module_path": module_path,
             "func_name": func.__name__  # 新增函数名
         }
 

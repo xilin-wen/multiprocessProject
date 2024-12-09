@@ -1,3 +1,9 @@
+"""
+文件描述: 用于将处理后的数据返回给客户端
+
+创建者: 汐琳
+创建时间: 2024-12-06 17:24:05
+"""
 import json  # 导入 JSON 模块
 
 def send_http_response(client_socket, status_code = 200, status_message = "请求成功", headers=None, body=None):

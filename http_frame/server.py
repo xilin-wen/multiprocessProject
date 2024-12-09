@@ -4,26 +4,16 @@ import json
 import urllib.parse
 import importlib
 
-from decoratorFunc.getFuncDict import route_handlers
-from send_http_response import send_http_response
+from http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
 
 class HTTPServer:
-    def __init__(self, port, shared_queue):
+    def __init__(self, port, shared_queue, shared_route_handlers):
         # 初始化 HTTP 服务器
         self.port = port  # 服务器监听的端口
         self.shared_queue = shared_queue  # 跨进程共享队列
-        self.request = None # 前端传过来的数据
-        self.api_func_info = None # 接口函数的相关信息
-        self.path = None # 接口路由
-        self.method = None # 接口方法
-        self.header_dict = {} # 接口头部信息
-        self.data = {} # 接口数据
-        self.api_func = None # api 函数
-
-    def test(self):
-        self.other()
+        self.shared_route_handlers = shared_route_handlers
 
     def serve_forever(self):
         # 启动 HTTP 服务，监听客户端请求
@@ -47,18 +37,19 @@ class HTTPServer:
                 threading.Thread(target=self.handle_client, args=(client_socket,)).start()
 
     def parsing_data(self, client_socket):
-        self.request = client_socket.recv(1024).decode()  # 接收请求数据最大长度为1024
-        if not self.request:
+        # request 前端传过来的数据
+        request = client_socket.recv(1024).decode()  # 接收请求数据最大长度为1024
+        if not request:
             return  # 如果没有请求数据，直接返回
 
         # 解析请求头，提取请求方法、路径、HTTP 版本、头部信息等
         # 状态行： HTTP/1.0 200 OK -- 200 是状态码
-        request_line, *headers = self.request.split('\r\n')  # 按行分隔请求和头部 -- HTTP 标准中定义的换行符是“回车 + 换行”
-        self.method, path, version = request_line.split()  # 提取方法、路径和 HTTP 版本
+        request_line, *headers = request.split('\r\n')  # 按行分隔请求和头部 -- HTTP 标准中定义的换行符是“回车 + 换行”
+        method, path, version = request_line.split()  # 提取方法、路径和 HTTP 版本
 
         # 解析 URL，去掉查询参数，只保留纯净的路由
         parsed_url = urllib.parse.urlparse(path) # 将 URL 拆解为各个组成部分，包括路径、查询参数、锚点等。我们只需要使用 path 部分，而 params 和 query 部分会被自动去掉
-        self.path = parsed_url.path  # 只保留路径部分，不包括查询字符串
+        path = parsed_url.path  # 只保留路径部分，不包括查询字符串
 
         """
         创建一个字典存储请求头
@@ -76,49 +67,61 @@ class HTTPServer:
             Referer: 上一个请求的 URL 地址，浏览器发送该头用于引用页面。
             Origin: 请求的原始域，通常用于跨域请求时识别来源。
         """
+        header_dict = {}  # 接口头部信息
         for header in headers:
             if header:
                 header_name, header_value = header.split(': ', 1)  # 解析键值对
-                self.header_dict[header_name] = header_value
+                header_dict[header_name] = header_value
 
         # 判断 Content-Type
-        content_type = self.header_dict.get('Content-Type', '').lower()
+        content_type = header_dict.get('Content-Type', '').lower()
 
         # 解析请求数据
-        if self.method == 'GET':
+        data = {}  # 接口数据
+        if method == 'GET':
             # GET 请求通常通过查询参数传递数据
-            parsed_url = urllib.parse.urlparse(path)
-            self.data = urllib.parse.parse_qs(parsed_url.query)
-        elif self.method == 'POST':
-            header_end = self.request.find("\r\n\r\n")
+            data = urllib.parse.parse_qs(parsed_url.query)
+        elif method == 'POST':
+            header_end = request.find("\r\n\r\n")
             if header_end != -1:
-                body = self.request[header_end + 4:] # str 类型数据
+                body = request[header_end + 4:] # str 类型数据
 
                 # 处理不同的 Content-Type
                 if 'application/x-www-form-urlencoded' in content_type:
                     # 处理 application/x-www-form-urlencoded 数据
                     post_params = urllib.parse.parse_qs(body)
                     for key, value in post_params.items():
-                        self.data[key] = value
+                        data[key] = value
 
                 elif 'application/json' in content_type:
                     # 处理 application/json 数据
                     try:
                         post_data = json.loads(body)
-                        self.data.update(post_data)  # 更新字典
+                        data.update(post_data)  # 更新字典
                     except json.JSONDecodeError as e:
                         print(f"Failed to decode JSON: {e}")
 
-    def import_func(self):
-        self.api_func_info = route_handlers.get(self.path, {}).get(self.method, {})
+        return {
+            "request": request,
+            "path": path,
+            "method": method,
+            "header_dict": header_dict,
+            "data": data,
+        }
 
-        module_name = self.api_func_info.get("module")  # 获取模块名称（不需要 .py 后缀）
+    def import_func(self, path, method):
+        api_func_info = self.shared_route_handlers.get(path, {}).get(method, {})
+        module_name = api_func_info.get("module_path")  # 获取模块名称（不需要 .py 后缀）
         module = importlib.import_module(module_name)  # 导入模块
+        api_func_name = api_func_info.get("func_name")  # 获取函数名称
+        api_func = getattr(module, api_func_name)  # 动态获取函数
+        return {
+            "api_func_info": api_func_info,
+            "api_func": api_func
+        }
 
-        api_func_name = self.api_func_info.get("func_name")  # 获取函数名称
-        self.api_func = getattr(module, api_func_name)  # 动态获取函数
-
-    def create_header(self, content_type = "application/json", **other_info):
+    @staticmethod
+    def create_header(content_type ="application/json", **other_info):
         header_info = {
             "Content-Type": content_type
         }
@@ -129,24 +132,28 @@ class HTTPServer:
 
         return header_info
 
-    def handle_client(self, client_socket):
+    def handle_client(self, client_socket, ):
         # 处理客户端请求
         try:
             # 解析接收到的信息
-            self.parsing_data(client_socket)
+            parsing_data = self.parsing_data(client_socket)
+            request, path, method, header_dict, data = parsing_data.values()
+
 
             # 找到并导入对应的 api 函数
-            self.import_func()
+            api_func_dict = self.import_func(path, method)
+            api_func_info = api_func_dict["api_func_info"]
+            api_func = api_func_dict["api_func"]
 
             # 创建 header 信息
             return_headers = self.create_header()
 
             # 判断 token 是否有效，并从中获取有用信息
-            is_validate_token = self.api_func_info.get("token_required")
-            is_validate_role = self.api_func_info.get("role_required")
+            is_validate_token = api_func_info.get("token_required")
+            is_validate_role = api_func_info.get("role_required")
             if is_validate_token:
                 # 从请求头中获取 Authorization 头部并提取 token
-                authorization = self.header_dict.get('Authorization', '')
+                authorization = header_dict.get('Authorization', '')
                 token = None
                 if authorization.startswith('Bearer '):
                     token = authorization[len('Bearer '):]  # 获取 Bearer 后面的 token
@@ -157,12 +164,12 @@ class HTTPServer:
                     if not token_validate_result:
                         send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", return_headers)
                     else:
-                        response = self.api_func(ctx=decoded_token, data=self.data)
+                        response = api_func(ctx=decoded_token, data=data)
                         send_http_response(client_socket, response["code"], response["message"], return_headers, response["body"])
                 else:
                     send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", return_headers)
             else:
-                response = self.api_func({}, self.data)
+                response = api_func({}, data)
                 send_http_response(client_socket, response["code"], response["message"], return_headers, response["body"])
 
         finally:

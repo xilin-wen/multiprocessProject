@@ -1,13 +1,13 @@
 import multiprocessing
 import json
 from decoratorFunc.getFuncDict import get_func_dict
-from send_http_response import send_http_response
+from http_frame.send_http_response import send_http_response
 
 data_hello = {"message": "Hello, world!"}
 data_goodbye = {"message": "Goodbye, world!"}
 
 # 定义多个路由处理函数
-@get_func_dict('/hello', method='GET', token_required=False, role_required=True)
+@get_func_dict('/hello', method='get', token_required=False, role_required=True)
 def handle_hello(self):
     self.send_response(200)
     self.send_header('Content-type', 'application/json')
@@ -25,7 +25,7 @@ def handle_goodbye(self, client_socket):
         "Content-Type": "application/json",
     }
     # send_http_response(client_socket, 404, "Not Found", headers, body)
-    send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", headers, response)
+    # send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", headers, response)
 
 shared_var = multiprocessing.Value('i', 0)
 lock = multiprocessing.Lock()
