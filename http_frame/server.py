@@ -17,30 +17,42 @@ class HTTPServer:
         self.shared_queue = shared_queue  # 跨进程共享队列
         self.shared_route_handlers = shared_route_handlers
 
-    def serve_forever(self):
+    async def serve_forever(self):
         # 启动 HTTP 服务，监听客户端请求
         # 使用 with 语法来确保 socket 连接会自动关闭
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
-            # 创建 TCP 套接字，IPv4 地址，流式协议
-            server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用
+        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        #     # 创建 TCP 套接字，IPv4 地址，流式协议
+        #     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用
+        #
+        #     server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
+        #     server_socket.listen(5)  # 开始监听，最多允许 5 个连接排队
+        #     print(f"Server listening on port {self.port}...")  # 打印启动信息
+        #
+        #     while True:
+        #         # 持续接受客户端连接
+        #         # client_socket 和 server_socket是两个不同的套接字
+        #         #       server_socket 主要用于监听，
+        #         #       client_socket 主要用于与连接的客户端进行通信
+        #         client_socket, client_address = server_socket.accept()  # 等待客户端连接
+        #         print(f"Connection from {client_address}")  # 打印客户端信息
+        #         # 为每个连接启动新线程处理请求
+        #         threading.Thread(target=self.handle_client, args=(client_socket,)).start()
 
-            server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
-            server_socket.listen(5)  # 开始监听，最多允许 5 个连接排队
-            print(f"Server listening on port {self.port}...")  # 打印启动信息
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 设置端口复用
+        server_socket.bind(('0.0.0.0', self.port))  # 绑定端口
+        server_socket.listen(5)
 
-            while True:
-                # 持续接受客户端连接
-                # client_socket 和 server_socket是两个不同的套接字
-                #       server_socket 主要用于监听，
-                #       client_socket 主要用于与连接的客户端进行通信
-                client_socket, client_address = server_socket.accept()  # 等待客户端连接
-                print(f"Connection from {client_address}")  # 打印客户端信息
-                # 为每个连接启动新线程处理请求
-                threading.Thread(target=self.handle_client, args=(client_socket,)).start()
+        server = await asyncio.start_server(self.handle_client, sock=server_socket)  # 异步创建 TCP 服务器
+        print(f"Server listening on port {self.port}...")  # 打印启动信息
 
-    def parsing_data(self, client_socket):
+        # 运行服务器直到手动停止
+        async with server:
+            await server.serve_forever()  # 异步地一直运行，直到手动停止
+
+    async def parsing_data(self, reader):
         # request 前端传过来的数据
-        request = client_socket.recv(1024).decode()  # 接收请求数据最大长度为1024
+        request = (await reader.read(1024)).decode()  # 异步读取请求数据（最大 1024 字节），并使用decode()方法将字节流解码为字符串  asyncio.start_server 提供的 reader 和 writer 是对原始套接字的封装
         if not request:
             return  # 如果没有请求数据，直接返回
 
@@ -134,11 +146,14 @@ class HTTPServer:
 
         return header_info
 
-    def handle_client(self, client_socket, ):
+    async def handle_client(self, reader, writer):
         # 处理客户端请求
         try:
             # 解析接收到的信息
-            parsing_data = self.parsing_data(client_socket)
+            parsing_data = await self.parsing_data(reader)
+            if parsing_data is None:
+                return  # 如果没有请求数据，直接返回
+
             request, path, method, header_dict, data = parsing_data.values()
 
 
@@ -164,15 +179,18 @@ class HTTPServer:
                     token_validate_result = Authority(token, verify_identity = is_validate_role, verify_token = is_validate_token)
                     decoded_token = token_validate_result.get_decoded_info()
                     if not token_validate_result:
-                        send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", return_headers)
+                        await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
                     else:
                         response = api_func(ctx=decoded_token, data=data)
-                        send_http_response(client_socket, response["code"], response["message"], return_headers, response["body"])
+                        await send_http_response(writer, response["code"], response["message"], return_headers, response["body"])
                 else:
-                    send_http_response(client_socket, 401, "'错误':'令牌已过期或无效'", return_headers)
+                    await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
             else:
                 response = api_func({}, data)
-                send_http_response(client_socket, response["code"], response["message"], return_headers, response["body"])
+                await send_http_response(writer, response["code"], response["message"], return_headers, response["body"])
 
         finally:
-            client_socket.close()  # 无论如何关闭客户端连接
+            writer.close()  # 无论如何关闭客户端连接
+
+    async def start(self):
+        await self.serve_forever()  # 调用 serve_forever 协程
