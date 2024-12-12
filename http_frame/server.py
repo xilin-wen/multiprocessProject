@@ -39,9 +39,9 @@ class HTTPServer:
         #         threading.Thread(target=self.handle_client, args=(client_socket,)).start()
 
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 设置端口复用
-        server_socket.bind(('0.0.0.0', self.port))  # 绑定端口
-        server_socket.listen(5)
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用
+        server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
+        server_socket.listen(5) # 开始监听，最多允许 5 个连接排队
 
         server = await asyncio.start_server(self.handle_client, sock=server_socket)  # 异步创建 TCP 服务器
         print(f"Server listening on port {self.port}...")  # 打印启动信息

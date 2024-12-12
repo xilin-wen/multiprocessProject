@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 修改为协程前的备份">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/send_http_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/send_http_response.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
