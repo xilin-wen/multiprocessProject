@@ -13,6 +13,8 @@ def handle_hello(ctx, data):
         "data": data
     }
     body.update(data_hello)
+    # 这里主动抛出异常
+    # raise Exception("触发异常")
     return {
         "code": 200,
         "message": "this is a message",
@@ -23,7 +25,6 @@ def handle_hello(ctx, data):
 def handle_goodbye(ctx, data):
     print("ctx", ctx)
     print("data", data)
-    print("123456")
     body = {
         "ctx": ctx,
         "data": data

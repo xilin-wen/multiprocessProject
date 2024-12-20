@@ -2,6 +2,7 @@ import asyncio
 import multiprocessing  # 导入多进程模块
 import os  # 导入操作系统模块，用于获取CPU核心数
 import signal  # 导入信号模块，用于捕获进程信号
+import time
 
 from http_frame.server import HTTPServer # 导入 HTTPServer 类，用于处理 HTTP 请求
 from script.traverse_folder import import_all_functions_in_folder
@@ -29,16 +30,38 @@ async def start_server_worker(port, queue, shared_route_handlers):
 
 def worker_process(port, queue, shared_route_handlers):
     """
-    单个进程的工作函数，运行 asyncio 事件循环
+    单个进程的工作函数，运行 asyncio 事件循环，且处理进程中的异常，确保进程崩溃时会重启
+        --后续需要加入日志和错误跟踪，用于记录每个进程的状态、异常和重启
+
+    :param port: 监听的端口号
+    :param queue: 跨进程共享队列
+    :param shared_route_handlers: 跨进程共享的路由处理程序字典
     """
-    loop = asyncio.get_event_loop()
-    try:
-        # 在事件循环中启动异步 HTTP 服务器
-        loop.run_until_complete(start_server_worker(port, queue, shared_route_handlers))
-    except KeyboardInterrupt:
-        pass
-    finally:
-        loop.close()  # 关闭事件循环
+    loop = None  # 确保 loop 变量在 try 块外部就已经声明
+    while True:
+        try:
+            # loop = asyncio.get_event_loop()
+            # 每次进程崩溃后重新创建一个新的事件循环
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)  # 将新的事件循环设置为当前线程的默认事件循环
+            # 在事件循环中启动异步 HTTP 服务器
+            loop.run_until_complete(start_server_worker(port, queue, shared_route_handlers))
+        except Exception as e:
+            print(f"Worker process crashed: {e}. Restarting...")
+            time.sleep(3)  # 等待 3 秒后重启进程，避免立即重启
+        finally:
+            if loop:
+                loop.close()  # 确保事件循环存在时关闭它
+
+# def restart_process(port, queue, shared_route_handlers):
+#     """
+#        进程重启逻辑
+#        """
+#     print("服务器进程重启中...")
+#     time.sleep(3)  # 等待 3 秒后重启进程，避免立即重启
+#     # 重新启动新的进程
+#     new_process = multiprocessing.Process(target=worker_process, args=(port, queue, shared_route_handlers))
+#     new_process.start()
 
 # 启动服务器的函数
 def start_server(port):
@@ -67,19 +90,28 @@ def start_server(port):
 
         # 捕获终止信号并优雅退出
         def graceful_exit(signum, frame):
-            print("Shutting down server...")
-            for process in processes:
-                process.terminate()  # 终止子进程
-            for process in processes:
-                process.join()  # 等待子进程退出
+            print("终止服务...")
+            for process_item in processes:
+                process_item.terminate()  # 终止子进程
+            for process_item in processes:
+                process_item.join()  # 等待子进程退出
             exit(0)
 
         signal.signal(signal.SIGTERM, graceful_exit)
         signal.signal(signal.SIGINT, graceful_exit)
 
-        # 等待所有进程结束
-        for process in processes:
-            process.join()  # 阻塞，直到每个进程结束
+        # 等待所有进程结束，并监控是否有进程崩溃
+        while True:
+            for i, processing_item in enumerate(processes):
+                print(processing_item)
+                if not processing_item.is_alive():  # 如果某个进程没有存活
+                    print("工作进程异常，正在重新启动，请稍后......")
+                    # 重新启动崩溃的进程
+                    new_process = multiprocessing.Process(target=worker_process, args=(port, queue, shared_route_handlers))
+                    processes[i] = new_process  # 替换已停止的进程
+                    new_process.start()
+
+            time.sleep(1)  # 每秒钟检查一次进程状态
 
 # 主程序入口
 if __name__ == "__main__":

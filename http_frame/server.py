@@ -1,5 +1,4 @@
 import socket  # 导入套接字模块
-import threading  # 导入线程模块，用于多线程处理请求
 import json
 import urllib.parse
 import importlib
@@ -19,27 +18,8 @@ class HTTPServer:
 
     async def serve_forever(self):
         # 启动 HTTP 服务，监听客户端请求
-        # 使用 with 语法来确保 socket 连接会自动关闭
-        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
-        #     # 创建 TCP 套接字，IPv4 地址，流式协议
-        #     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用
-        #
-        #     server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
-        #     server_socket.listen(5)  # 开始监听，最多允许 5 个连接排队
-        #     print(f"Server listening on port {self.port}...")  # 打印启动信息
-        #
-        #     while True:
-        #         # 持续接受客户端连接
-        #         # client_socket 和 server_socket是两个不同的套接字
-        #         #       server_socket 主要用于监听，
-        #         #       client_socket 主要用于与连接的客户端进行通信
-        #         client_socket, client_address = server_socket.accept()  # 等待客户端连接
-        #         print(f"Connection from {client_address}")  # 打印客户端信息
-        #         # 为每个连接启动新线程处理请求
-        #         threading.Thread(target=self.handle_client, args=(client_socket,)).start()
-
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用 -- 虽然说 asyncio 是自主支持端口复用，但是如果不添加这句代码会报错，不允许复用端口
         server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
         server_socket.listen(5) # 开始监听，最多允许 5 个连接排队
 
