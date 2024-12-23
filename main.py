@@ -66,7 +66,7 @@ def worker_process(port, queue, shared_route_handlers):
 # 启动服务器的函数
 def start_server(port):
     # 创建跨进程共享队列
-    queue = SharedData().queue
+    queue = SharedData().shared_queue
 
     # 获取 CPU 核心数，决定创建多少个进程
     num_workers = os.cpu_count() or 1  # 获取操作系统中 CPU 核心数量 防止 os.cpu_count() 返回 None
@@ -111,7 +111,7 @@ def start_server(port):
                     processes[i] = new_process  # 替换已停止的进程
                     new_process.start()
 
-            time.sleep(1)  # 每秒钟检查一次进程状态
+            time.sleep(1)  # 每秒钟检查一次进程状态 --想办法替换，有消耗资源的弊端
 
 # 主程序入口
 if __name__ == "__main__":
