@@ -9,6 +9,8 @@ from script.traverse_folder import import_all_functions_in_folder
 from shared_data import SharedData  # 导入共享数据管理类
 from decoratorFunc.getFuncDict import route_handlers
 
+print(route_handlers)
+
 async def start_server_worker(port, queue, shared_route_handlers):
     """
     启动单个异步 HTTP 服务器实例

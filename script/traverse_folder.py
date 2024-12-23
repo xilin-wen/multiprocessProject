@@ -21,6 +21,7 @@ def import_all_functions_in_folder(folder_path):
             module_path = py_file.relative_to(folder).with_suffix('')
             # 使用相对路径，转换为模块路径，前缀加上 api_func_set
             module_name = f"api_func_set.{module_path}".replace(os.sep, '.')
+            # print("module_name", module_name)
 
             try:
                 # 动态导入模块
