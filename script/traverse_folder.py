@@ -15,7 +15,7 @@ def import_all_functions_in_folder(folder_path):
     动态导入指定文件夹及其子文件夹下的所有 Python 文件，排除 '__init__.py'。
     """
     folder = Path(folder_path)
-    api_func_name_set = []  # 用于存储函数名
+    import_api_func_dict = {}  # 用于存储所有函数，按函数名称作为键
 
     for py_file in folder.rglob('*.py'):
         # 排除 __init__.py 文件
@@ -42,17 +42,20 @@ def import_all_functions_in_folder(folder_path):
 
                         if not func_is_decorator:
                             # 由于是在全局中引入所有 api 函数，因此 api 函数的名字不能重复
-                            if func_item_name in api_func_name_set:
+                            if func_item_name in import_api_func_dict:
                                 raise ValueError(f"{module_name} 文件中的 '{func_item_name} 函数' 已经存在，请修改函数名称")
                             else:
-                                api_func_name_set.append(func_item_name)
+                                import_api_func_dict[func_item_name] = func_item
 
-                                # 动态引入函数（如果未重复）
-                                try:
-                                    # 动态加载函数
-                                    getattr(module, func_item_name)
-                                except Exception as e:
-                                    raise ImportError(f"无法导入从'{module_path}'模块中导入函数 '{func_item_name}': {e}")
+                                # # 动态引入函数（如果未重复）
+                                # try:
+                                #     # 动态加载函数
+                                #     getattr(module, func_item_name)
+                                # except Exception as e:
+                                #     raise ImportError(f"无法导入从'{module_path}'模块中导入函数 '{func_item_name}': {e}")
 
             except ModuleNotFoundError as e:
                 print(f"Error importing {module_name}: {e}")
+
+    print("api_func_dict", import_api_func_dict)
+    return import_api_func_dict

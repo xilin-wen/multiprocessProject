@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 要改很多东西版">
-      <change afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 将所有API函数在项目启动时加载在主进程中">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funcSet.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script/traverse_folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/traverse_folder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/shared_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734952128418</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: 将所有API函数在项目启动时加载在主进程中">
+      <option name="closed" value="true" />
+      <created>1735037140160</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1735037140160</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,6 +301,7 @@
     <MESSAGE value="feat: 将请求修改为协程" />
     <MESSAGE value="feat: 重启服务" />
     <MESSAGE value="feat: 要改很多东西版" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 要改很多东西版" />
+    <MESSAGE value="feat: 将所有API函数在项目启动时加载在主进程中" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 将所有API函数在项目启动时加载在主进程中" />
   </component>
 </project>

@@ -2,18 +2,17 @@ import socket  # 导入套接字模块
 import json
 import urllib.parse
 import importlib
-
 import asyncio
 
 from http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
-
 class HTTPServer:
-    def __init__(self, port, shared_route_handlers):
+    def __init__(self, port, shared_route_handlers, import_api_func_dict):
         # 初始化 HTTP 服务器
         self.port = port  # 服务器监听的端口
         self.shared_route_handlers = shared_route_handlers
+        self.import_api_func_dict = import_api_func_dict
 
     async def serve_forever(self):
         # 启动 HTTP 服务，监听客户端请求
@@ -104,14 +103,11 @@ class HTTPServer:
 
     def import_func(self, path, method):
         api_func_info = self.shared_route_handlers.get(path, {}).get(method, {})
-        module_name = api_func_info.get("module_path")  # 获取模块名称（不需要 .py 后缀）
-        module = importlib.import_module(module_name)  # 导入模块
-
         api_func_name = api_func_info.get("func_name")  # 获取函数名称
-        api_func = getattr(module, api_func_name)  # 动态获取函数
+
         return {
             "api_func_info": api_func_info,
-            "api_func": api_func
+            "api_func_name": api_func_name
         }
 
     @staticmethod
@@ -139,7 +135,8 @@ class HTTPServer:
             # 找到并导入对应的 api 函数
             api_func_dict = self.import_func(path, method)
             api_func_info = api_func_dict["api_func_info"]
-            api_func = api_func_dict["api_func"]
+            func_name = api_func_info["func_name"]
+            api_func = self.import_api_func_dict[func_name]
 
             # 创建 header 信息
             return_headers = self.create_header()

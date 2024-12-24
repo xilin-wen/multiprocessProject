@@ -7,15 +7,15 @@ import time
 from http_frame.server import HTTPServer # 导入 HTTPServer 类，用于处理 HTTP 请求
 from script.traverse_folder import import_all_functions_in_folder
 
-async def start_server_worker(port, route_dict):
+async def start_server_worker(port, route_dict, import_api_func_dict):
     """
     启动单个异步 HTTP 服务器实例
     """
-    server = HTTPServer(port, route_dict)  # 使用自定义 HTTPServer 类
+    server = HTTPServer(port, route_dict, import_api_func_dict)  # 使用自定义 HTTPServer 类
     await server.start()  # 启动 HTTPServer（异步操作）
     await asyncio.Future()  # 防止退出（保持运行状态）
 
-def worker_process(port, route_dict):
+def worker_process(port, route_dict, import_api_func_dict):
     """
     单个进程的工作函数，运行 asyncio 事件循环，且处理进程中的异常，确保进程崩溃时会重启
         --后续需要加入日志和错误跟踪，用于记录每个进程的状态、异常和重启
@@ -31,7 +31,7 @@ def worker_process(port, route_dict):
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)  # 将新的事件循环设置为当前线程的默认事件循环
             # 在事件循环中启动异步 HTTP 服务器
-            loop.run_until_complete(start_server_worker(port, route_dict))
+            loop.run_until_complete(start_server_worker(port, route_dict, import_api_func_dict))
         except Exception as e:
             print(f"Worker process crashed: {e}. Restarting...")
             time.sleep(3)  # 等待 3 秒后重启进程，避免立即重启
@@ -40,7 +40,7 @@ def worker_process(port, route_dict):
                 loop.close()  # 确保事件循环存在时关闭它
 
 # 启动服务器的函数
-def start_server(port, route_dict):
+def start_server(port, route_dict, import_api_func_dict):
     # # 创建跨进程共享队列
     # queue = SharedData().shared_queue
 
@@ -56,7 +56,7 @@ def start_server(port, route_dict):
 
     # 启动多个子进程
     for _ in range(start_workers):
-        process = multiprocessing.Process(target=worker_process, args=(port, route_dict)) # 创建新进程
+        process = multiprocessing.Process(target=worker_process, args=(port, route_dict, import_api_func_dict)) # 创建新进程
         processes.append(process)  # 将进程添加到进程列表中
         process.start()  # 启动进程
 
@@ -100,6 +100,6 @@ if __name__ == "__main__":
         本项目中，route_handlers 在应用运行期间不需要频繁更新且不需要跨进程共享和同步，第三种写法是最合适的。这种方式在进程数量较多的情况下，能有效减少系统的资源消耗
     """
     from decoratorFunc.getFuncDict import route_handlers
-    import_all_functions_in_folder("api_func_set")
+    import_api_func_dict = import_all_functions_in_folder("api_func_set")
 
-    start_server(8866, route_handlers)  # 启动服务器，监听 8866 端口
+    start_server(8866, route_handlers, import_api_func_dict)  # 启动服务器，监听 8866 端口
