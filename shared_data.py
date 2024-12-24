@@ -113,11 +113,11 @@ class SharedData:
 
         # 显示当前所有共享数据
 
-    def display_data(self):
-        print("Shared Dictionary:", self.shared_dict)
-        print("Shared List:", self.shared_list)
-        print("Shared Queue:", list(self.shared_queue.queue))  # Convert Queue to list for display
-        print("Shared Integer:", self.shared_value.value)
-        print("Shared Float:", self.shared_float.value)
-        print("Shared String:", self.shared_string.value.decode())
-        print("Shared Array:", list(self.shared_array))
+    # def display_data(self):
+        # print("Shared Dictionary:", self.shared_dict)
+        # print("Shared List:", self.shared_list)
+        # print("Shared Queue:", list(self.shared_queue.queue))  # Convert Queue to list for display
+        # print("Shared Integer:", self.shared_value.value)
+        # print("Shared Float:", self.shared_float.value)
+        # print("Shared String:", self.shared_string.value.decode())
+        # print("Shared Array:", list(self.shared_array))

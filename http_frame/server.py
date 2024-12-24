@@ -10,10 +10,9 @@ from user.authority import Authority
 
 
 class HTTPServer:
-    def __init__(self, port, shared_queue, shared_route_handlers):
+    def __init__(self, port, shared_route_handlers):
         # 初始化 HTTP 服务器
         self.port = port  # 服务器监听的端口
-        self.shared_queue = shared_queue  # 跨进程共享队列
         self.shared_route_handlers = shared_route_handlers
 
     async def serve_forever(self):
@@ -107,6 +106,7 @@ class HTTPServer:
         api_func_info = self.shared_route_handlers.get(path, {}).get(method, {})
         module_name = api_func_info.get("module_path")  # 获取模块名称（不需要 .py 后缀）
         module = importlib.import_module(module_name)  # 导入模块
+
         api_func_name = api_func_info.get("func_name")  # 获取函数名称
         api_func = getattr(module, api_func_name)  # 动态获取函数
         return {
@@ -135,7 +135,6 @@ class HTTPServer:
                 return  # 如果没有请求数据，直接返回
 
             request, path, method, header_dict, data = parsing_data.values()
-
 
             # 找到并导入对应的 api 函数
             api_func_dict = self.import_func(path, method)

@@ -1,5 +1,5 @@
 """
-文件描述: api_func 函数的装饰器函数，用于在项目启动时获取所有 api 函数的基本信息，并且创建一个 route_handlers 字典用于存放这些信息
+文件描述: api_func 函数的装饰器函数，用于在项目启动时获取、导入所有 api 函数的基本信息，并且创建一个 route_handlers 字典用于存放这些信息
 
 创建者: 汐琳
 创建时间: 2024-12-06 16:25:48
@@ -7,6 +7,8 @@
 import os
 import inspect
 from pathlib import Path
+from symtable import Function
+# from symtable import Function
 from typing import Literal
 # 存储所有路由的处理器
 route_handlers = {}
@@ -26,6 +28,9 @@ def get_func_dict(
     :param role_required: 是否需要角色鉴权，默认 False
     :return: 装饰后的函数
     """
+
+    # 给装饰器函数自己添加一个属性 __is_decorator__，用于在引入所有 API 函数时，排除引入装饰器 --装饰器多是重复使用，但是本项目中要求函数名字不能重复
+    get_func_dict.__is_decorator__ = True
 
     def decorator(func):
         # 获取被装饰函数的文件路径
@@ -49,7 +54,7 @@ def get_func_dict(
             module_path = str(Path(file_without_extension).with_suffix('')).replace(os.sep, '.')
         else:
             # 如果路径无法匹配 api_func_set，给出错误提示或处理
-            raise ValueError(f"Function '{func.__name__}' is not located within the 'api_func_set' directory.")
+            raise ValueError(f"'{func.__name__}' 函数不在 'api_func_set' 文件夹下。")
 
         # 初始化 route_handlers[path] 为字典（如果尚未初始化）
         if path not in route_handlers:

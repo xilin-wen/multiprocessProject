@@ -23,7 +23,6 @@ class StartMultiprocessServer:
         self.manager = multiprocessing.Manager()
         # 获取 CPU 核心数，决定创建多少个进程
         self.cpu_cores_number = self.get_cpu_cores_count()  # 根据操作系统获取 CPU 核心数量
-        print(self.cpu_cores_number)
 
     @staticmethod
     def get_cpu_cores_count():
@@ -115,10 +114,7 @@ class StartMultiprocessServer:
         # 启动多个子进程
         for _ in range(start_workers):
             process = multiprocessing.Process(target=self.start_multiprocess)  # 创建新进程
-            print("process", process)
-            print(process.is_alive())
             self.processes.append(process)  # 将进程添加到进程列表中
-            print("self.processes", self.processes)
             process.start()  # 启动进程
 
         self.setup_signal_handlers()

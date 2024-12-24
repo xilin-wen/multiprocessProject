@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 要改很多东西版">
-      <change afterPath="$PROJECT_DIR$/start_server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funcSet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script/traverse_folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/traverse_folder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/shared_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,10 +55,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "ignore_missing_gitignore": "true",
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/api_func_set",
     "settings.editor.selected.configurable": "editing.templates"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http_frame" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http" />
@@ -259,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734917567227</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: 要改很多东西版">
+      <option name="closed" value="true" />
+      <created>1734952128418</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1734952128418</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
