@@ -7,8 +7,6 @@
 import os
 import inspect
 from pathlib import Path
-from symtable import Function
-# from symtable import Function
 from typing import Literal
 # 存储所有路由的处理器
 route_handlers = {}

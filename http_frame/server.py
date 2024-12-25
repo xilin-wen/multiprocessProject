@@ -1,3 +1,9 @@
+"""
+文件描述: 本文件处理客户端和服务端之间的通信
+
+创建者: 汐琳
+创建时间: 2024-12-25 15:50:05
+"""
 import socket  # 导入套接字模块
 import json
 import urllib.parse
@@ -7,14 +13,16 @@ from http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
 class HTTPServer:
-    def __init__(self, port, shared_route_handlers, import_api_func_dict):
-        # 初始化 HTTP 服务器
+    def __init__(self, port, route_handlers, import_api_func_dict):
         self.port = port  # 服务器监听的端口
-        self.shared_route_handlers = shared_route_handlers
-        self.import_api_func_dict = import_api_func_dict
+        self.route_handlers = route_handlers # 路由和 api 函数的关系字典
+        self.import_api_func_dict = import_api_func_dict # 在主进程中引入的 api 函数字典
 
     async def serve_forever(self):
-        # 启动 HTTP 服务，监听客户端请求
+        """
+        启动 HTTP 服务，并监听客户端发送的请求
+        :return:
+        """
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用 -- 虽然说 asyncio 是自主支持端口复用，但是如果不添加这句代码会报错，不允许复用端口
         server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
@@ -28,6 +36,11 @@ class HTTPServer:
             await server.serve_forever()  # 异步地一直运行，直到手动停止
 
     async def parsing_data(self, reader):
+        """
+        解析客户端发送的数据
+        :param reader:
+        :return:
+        """
         # request 前端传过来的数据
         request = (await reader.read(1024)).decode()  # 异步读取请求数据（最大 1024 字节），并使用decode()方法将字节流解码为字符串  asyncio.start_server 提供的 reader 和 writer 是对原始套接字的封装
         if not request:
@@ -100,17 +113,14 @@ class HTTPServer:
             "data": data,
         }
 
-    def import_func(self, path, method):
-        api_func_info = self.shared_route_handlers.get(path, {}).get(method, {})
-        api_func_name = api_func_info.get("func_name")  # 获取函数名称
-
-        return {
-            "api_func_info": api_func_info,
-            "api_func_name": api_func_name
-        }
-
     @staticmethod
     def create_header(content_type ="application/json", **other_info):
+        """
+        创建请求头，默认 content_type 的属性为 application/json，如果还传入了其他属性，会合并并返回
+        :param content_type: 请求头中的 content_type 属性
+        :param other_info: 请求头中的其他属性
+        :return: 请求头信息
+        """
         header_info = {
             "Content-Type": content_type
         }
@@ -122,7 +132,12 @@ class HTTPServer:
         return header_info
 
     async def handle_client(self, reader, writer):
-        # 处理客户端请求
+        """
+        处理客户端请求
+        :param reader: asyncio.start_server 封装后的内容，是客户端传入的数据
+        :param writer: asyncio.start_server 封装后的内容，是服务端输出的数据
+        :return:
+        """
         try:
             # 解析接收到的信息
             parsing_data = await self.parsing_data(reader)
@@ -132,10 +147,9 @@ class HTTPServer:
             request, path, method, header_dict, data = parsing_data.values()
 
             # 找到并导入对应的 api 函数
-            api_func_dict = self.import_func(path, method)
-            api_func_info = api_func_dict["api_func_info"]
-            func_name = api_func_info["func_name"]
-            api_func = self.import_api_func_dict[func_name]
+            api_func_info = self.route_handlers.get(path, {}).get(method, {}) # 根据路由和请求方法，从 route_handlers 字典中获取本次请求对应的 api 函数的具体信息
+            api_func_name = api_func_info.get("func_name")  # 获取 api 函数名称
+            api_func = self.import_api_func_dict[api_func_name] # 从主进程中引入的所有 api 函数字典中国年获取本次请求所需的函数
 
             # 创建 header 信息
             return_headers = self.create_header()
