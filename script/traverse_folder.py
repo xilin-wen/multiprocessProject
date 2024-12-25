@@ -57,5 +57,4 @@ def import_all_functions_in_folder(folder_path):
             except ModuleNotFoundError as e:
                 print(f"Error importing {module_name}: {e}")
 
-    print("api_func_dict", import_api_func_dict)
     return import_api_func_dict
