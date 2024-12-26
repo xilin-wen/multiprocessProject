@@ -101,7 +101,6 @@ class ServerManager:
         # 启动多个子进程
         for _ in range(start_workers):
             process = multiprocessing.Process(target=self.worker_process)  # 创建新进程
-            print("process", process)
             processes.append(process)  # 将进程添加到进程列表中
             process.start()  # 启动进程
 

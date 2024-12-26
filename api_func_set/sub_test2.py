@@ -5,7 +5,7 @@ data_goodbye = {"message": "Goodbye, world!"}
 
 # 定义多个路由处理函数
 @get_func_dict('/hello', method='get', token_required=False,)
-def handle_hello1(ctx, data):
+def handle_hello_test(ctx, data):
     body = {
         "ctx": ctx,
         "data": data
@@ -20,7 +20,7 @@ def handle_hello1(ctx, data):
     }
 
 @get_func_dict('/goodbye', method='post')
-def handle_goodbye1(ctx, data):
+def handle_goodbye_test(ctx, data):
     body = {
         "ctx": ctx,
         "data": data
