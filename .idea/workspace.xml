@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 重新整理项目结构">
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 将进程绑定到固定的核心">
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload2/check_file_change.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload2/check_file_change_by_os.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload2/check_file_change_copy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload2/check_is_update.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload2/demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_frame/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save_func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/multiprocess_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/multiprocess_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http_frame/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +46,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.check_file_change.executor": "Run",
+    "Python.check_is_update.executor": "Run",
+    "Python.demo.executor": "Run",
     "Python.funcSet.executor": "Run",
     "Python.getFuncDict.executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_copy.executor": "Run",
+    "Python.module.executor": "Run",
     "Python.multiprocess_server.executor": "Run",
+    "Python.save_func.executor": "Run",
     "Python.server.executor": "Run",
     "Python.start_server.executor": "Run",
     "Python.sub_test.executor": "Run",
@@ -50,22 +64,24 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject",
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload2",
     "settings.editor.selected.configurable": "actions.on.save"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload2" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\project_frame" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http_frame" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="funcSet" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="check_file_change" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,11 +90,55 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload2" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/funcSet.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload2/check_file_change.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="check_is_update" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/check_is_update.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/demo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -109,7 +169,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main_copy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="module" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,55 +178,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_copy.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="multiprocess_server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multiprocess_server.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="start_server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start_server.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/module.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,10 +194,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.main_copy" />
-        <item itemvalue="Python.multiprocess_server" />
-        <item itemvalue="Python.start_server" />
-        <item itemvalue="Python.funcSet" />
+        <item itemvalue="Python.check_file_change" />
+        <item itemvalue="Python.check_is_update" />
+        <item itemvalue="Python.module" />
+        <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
   </component>
@@ -305,7 +321,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735114580033</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="style: 删除不必要print">
+      <option name="closed" value="true" />
+      <created>1735204364883</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1735204364883</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: 将进程绑定到固定的核心">
+      <option name="closed" value="true" />
+      <created>1735289952101</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1735289952101</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -330,6 +362,8 @@
     <MESSAGE value="feat: 将所有API函数在项目启动时加载在主进程中" />
     <MESSAGE value="feat: 封装多进程和协程启动服务" />
     <MESSAGE value="feat: 重新整理项目结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 重新整理项目结构" />
+    <MESSAGE value="style: 删除不必要print" />
+    <MESSAGE value="feat: 将进程绑定到固定的核心" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 将进程绑定到固定的核心" />
   </component>
 </project>
