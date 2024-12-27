@@ -11,6 +11,8 @@ import signal  # 导入信号模块，用于捕获进程信号
 import time
 import platform  # 用于判断操作系统类型
 
+import psutil
+
 from http_frame.server import HTTPServer  # 导入 HTTPServer 类，用于处理 HTTP 请求
 
 
@@ -26,26 +28,26 @@ class ServerManager:
         self.route_dict = route_dict
         self.api_func_dict = api_func_dict
         self.processes = []  # 存储所有子进程对象
+        self.os_type = platform.system()  # 获取操作系统类型
         self.cpu_cores_number = self.get_cpu_cores_count()  # 根据操作系统获取 CPU 核心数量
 
-    @staticmethod
-    def get_cpu_cores_count():
+
+    def get_cpu_cores_count(self):
         """
         根据操作系统类型获取 CPU 核心数量，并防止 os.cpu_count() 返回 None
         """
-        os_type = platform.system()  # 获取操作系统类型
-        if os_type == "Windows":
+        if self.os_type == "Windows":
             return os.cpu_count() or 1
-        elif os_type == "Linux":
+        elif self.os_type == "Linux":
             try:
                 with open("/proc/cpuinfo") as f:
                     return sum(1 for line in f if line.startswith("processor")) or 1
             except FileNotFoundError:
                 return os.cpu_count() or 1
-        elif os_type == "Darwin":  # macOS
+        elif self.os_type == "Darwin":  # macOS
             return os.cpu_count() or 1
         else:
-            print(f"未知操作系统: {os_type}，默认使用单核。")
+            print(f"未知操作系统: {self.os_type}，默认使用单核。")
             return 1
 
     async def start_server_worker(self):
@@ -87,7 +89,7 @@ class ServerManager:
 
     def start_server(self):
         """
-        启动服务器并管理子进程
+        启动服务器并管理子进程，并将每个进程绑定到特定核心
         """
         num_workers = os.cpu_count() or 1  # 获取操作系统中 CPU 核心数量 防止 os.cpu_count() 返回 None
 
@@ -98,11 +100,20 @@ class ServerManager:
             start_workers = num_workers
 
         processes = [] # 用于存放所有子进程
-        # 启动多个子进程
-        for _ in range(start_workers):
-            process = multiprocessing.Process(target=self.worker_process)  # 创建新进程
+
+        # 启动多个子进程，并绑定进程到指定核心
+        for i in range(start_workers):
+            process = multiprocessing.Process(target=self.worker_process)  # 创建新进程，并传递核心索引
             processes.append(process)  # 将进程添加到进程列表中
             process.start()  # 启动进程
+
+            # 获取当前进程的进程 ID (PID)
+            pid = process.pid
+
+            # 使用 psutil 绑定进程到指定核心
+            cpu_core = i % num_workers  # 将进程分配到不同的核心
+            p = psutil.Process(pid)
+            p.cpu_affinity([cpu_core])  # 绑定到指定核心
 
         self.processes = processes
 
