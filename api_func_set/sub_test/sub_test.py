@@ -10,6 +10,7 @@ def handle_hello(ctx, data):
         "ctx": ctx,
         "data": data
     }
+    print(123)
     body.update(data_hello)
     # 这里主动抛出异常
     # raise Exception("触发异常")

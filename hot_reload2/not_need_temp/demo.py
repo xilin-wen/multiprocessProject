@@ -8,8 +8,8 @@ hot_reload_enabled = False
 
 # 创建或检查模块是否存在
 def create_module():
-    if not os.path.exists("module.py"):
-        with open("module.py", "w") as f:
+    if not os.path.exists("../module.py"):
+        with open("../module.py", "w") as f:
             f.write("""
                 def greet():
                     return "Hello, World!"
@@ -30,10 +30,10 @@ def load_module():
 
 # 检查模块是否更新
 def check_for_update(last_modified_time):
-    if not os.path.exists("module.py"):
+    if not os.path.exists("../module.py"):
         print("module.py does not exist!")
         return last_modified_time
-    current_modified_time = os.path.getmtime("module.py")
+    current_modified_time = os.path.getmtime("../module.py")
     if current_modified_time != last_modified_time:
         print("Module updated!")  # 输出更新提示
         return current_modified_time

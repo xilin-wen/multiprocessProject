@@ -90,7 +90,6 @@ class ServerManager:
                 if task_type == 'http_server':
                     task = self.start_server_worker
                 elif task_type == 'listen_file_change':
-                    print(123)
                     watcher = FolderWatcher(folder_name="api_func_set")  # 创建监听器实例
                     task = watcher.start_watch  # 选择文件变化监听任务
                 else:

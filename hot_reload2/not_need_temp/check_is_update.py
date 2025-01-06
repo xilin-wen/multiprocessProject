@@ -19,7 +19,7 @@ def check_for_update(module_file, last_modified_time):
 
 # 示例：使用该函数来检测模块更新
 last_modified_time = 0  # 初始没有修改时间
-module_file = 'module.py'
+module_file = '../module.py'
 
 while True:
     last_modified_time = check_for_update(module_file, last_modified_time)

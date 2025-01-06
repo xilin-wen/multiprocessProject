@@ -1,4 +1,6 @@
+import importlib
 import os
+import sys
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -34,6 +36,30 @@ class FolderWatcher:
         if event.is_directory or not self.is_valid_file(event.src_path):
             return
         print(f"文件 {event.src_path} 发生变化")
+        self.reload_module(event.src_path)
+
+    def reload_module(self, file_path: str):
+        """
+        动态重新加载模块
+        """
+        module_name = self.get_module_name(file_path)
+        if module_name and module_name in sys.modules:
+            try:
+                importlib.reload(sys.modules[module_name])
+                print(f"模块 {module_name} 已重新加载")
+            except Exception as e:
+                print(f"重新加载模块 {module_name} 失败: {e}")
+
+    def get_module_name(self, file_path: str) -> str | None:
+        """
+        根据文件路径获取模块名称
+        """
+        if not file_path.endswith(".py"):
+            return None
+
+        relative_path = os.path.relpath(file_path, self.project_root)
+        module_name = relative_path.replace(os.sep, ".")[:-3]  # 去掉 `.py`
+        return module_name
 
     def start_watch(self):
         """
