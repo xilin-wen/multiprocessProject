@@ -5,15 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: temp">
-      <change afterPath="$PROJECT_DIR$/api_func_set/server_api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hot_reload/try_by_self.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload/change_func_wl.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/change_func_wl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload/hy_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/hy_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/change_func_wl.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/not_need/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/IP_restrictions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/not_need/hot_reload_main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/try_by_self.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/edit_func_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload2/check_file_change.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_file_change_by_os.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_file_change_copy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_is_update.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload2/not_need_temp/demo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/http_frame/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/not_need/save_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/not_need/shared_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,14 +77,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload2",
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject",
     "settings.editor.selected.configurable": "actions.on.save"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload2" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject" />
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload2" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

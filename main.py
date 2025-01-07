@@ -13,5 +13,5 @@ if __name__ == "__main__":
     from decoratorFunc.getFuncDict import route_handlers # 在主进程中引入 route_handlers
     import_api_func_dict = import_all_functions_in_folder("api_func_set") # 动态引入所有 api 函数
 
-    server_manager = ServerManager(8866, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
+    server_manager = ServerManager(8866, 8888, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
     server_manager.start_server()  # 启动服务器

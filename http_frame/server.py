@@ -9,14 +9,32 @@ import json
 import urllib.parse
 import asyncio
 
+from http_frame.IP_restrictions import NetworkUtils
 from http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
 class HTTPServer:
-    def __init__(self, port, route_handlers, import_api_func_dict):
+    def __init__(self, port, port_type, route_handlers, import_api_func_dict, allowed_ips=[]):
         self.port = port  # 服务器监听的端口
+        self.port_type = port_type  # 服务器类型
         self.route_handlers = route_handlers # 路由和 api 函数的关系字典
+        self.allowed_ips = allowed_ips  # 外部允许的 IP 列表
         self.import_api_func_dict = import_api_func_dict # 在主进程中引入的 api 函数字典
+        self.network_utils = NetworkUtils()  # 创建 NetworkUtils 实例
+        self.local_network_ips = self.network_utils.get_local_network_ips()  # 获取本机局域网 IP 地址段
+
+    def is_ip_allowed(self, client_ip):
+        """
+        检查客户端 IP 是否被允许访问
+        :param client_ip: 客户端 IP 地址
+        :return: True if allowed, False otherwise
+        """
+        # 检查客户端 IP 是否在局域网范围内或在外部手动设置的 IP 列表中
+        if client_ip in self.local_network_ips:
+            return True
+        if client_ip in self.allowed_ips:
+            return True
+        return False
 
     async def serve_forever(self):
         """
@@ -139,6 +157,15 @@ class HTTPServer:
         :return:
         """
         try:
+            print("self.port_type", self.port_type)
+            if self.port_type == "internal_use":
+                # 获取客户端的 IP 地址
+                client_ip = writer.get_extra_info('peername')[0]
+
+                # 检查 IP 是否被允许访问
+                if not self.is_ip_allowed(client_ip):
+                    await send_http_response(writer, 403, "'错误':'IP 不允许访问'", {})
+
             # 解析接收到的信息
             parsing_data = await self.parsing_data(reader)
             if parsing_data is None:

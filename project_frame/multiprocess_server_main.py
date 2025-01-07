@@ -13,19 +13,19 @@ import platform  # 用于判断操作系统类型
 from typing import Literal
 import psutil
 
-from hot_reload2.check_file_change import FolderWatcher
 from http_frame.server import HTTPServer  # 导入 HTTPServer 类，用于处理 HTTP 请求
 
 
 class ServerManager:
-    def __init__(self, port, route_dict, api_func_dict):
+    def __init__(self, client_port, internal_use_port, route_dict, api_func_dict):
         """
         初始化服务器管理器
-        :param port: 监听的端口号
+        :param client_port: 监听的端口号
         :param route_dict: 路由和 API 函数之间关系的字典
         :param api_func_dict: 动态引入生成的 API 函数字典
         """
-        self.port = port
+        self.client_port = client_port
+        self.internal_use_port = internal_use_port
         self.route_dict = route_dict
         self.api_func_dict = api_func_dict
         self.processes = []  # 存储所有子进程对象
@@ -55,7 +55,15 @@ class ServerManager:
         """
         启动单个异步 HTTP 服务器实例
         """
-        server = HTTPServer(self.port, self.route_dict, self.api_func_dict)  # 使用自定义 HTTPServer 类
+        server = HTTPServer(self.client_port, 'client', self.route_dict, self.api_func_dict)  # 使用自定义 HTTPServer 类
+        await server.start()  # 启动 HTTPServer（异步操作）
+        await asyncio.Future()  # 防止退出（保持运行状态）
+
+    async def start_internal_use_server_worker(self):
+        """
+        启动单个异步 HTTP 服务器实例
+        """
+        server = HTTPServer(self.internal_use_port, 'internal_use', self.route_dict, self.api_func_dict, ['127.0.0.1'])  # 使用自定义 HTTPServer 类
         await server.start()  # 启动 HTTPServer（异步操作）
         await asyncio.Future()  # 防止退出（保持运行状态）
 
@@ -77,7 +85,7 @@ class ServerManager:
         # 启动并行执行多个任务
         await asyncio.gather(print_time_periodically(self.os_type), other_task())
 
-    def worker_process(self, task_type: Literal['http_server', 'listen_file_change']):
+    def worker_process(self, task_type: Literal['http_server', 'listen_file_change', 'internal_use']):
         """
         单个进程的工作函数，运行 asyncio 事件循环，且处理进程中的异常，确保进程崩溃时会重启
         """
@@ -86,15 +94,17 @@ class ServerManager:
             try:
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)  # 将新的事件循环设置为当前线程的默认事件循环
-                task = self.start_server_worker
                 # 根据 task_type 选择对应的函数并调用，返回协程对象
-                # if task_type == 'http_server':
-                #     task = self.start_server_worker
+                if task_type == 'http_server':
+                    task = self.start_server_worker
                 # elif task_type == 'listen_file_change':
                 #     watcher = FolderWatcher(folder_name="api_func_set")  # 创建监听器实例
                 #     task = watcher.start_watch  # 选择文件变化监听任务
-                # else:
-                #     raise ValueError(f"未知的任务类型: {task_type}")
+                elif task_type == 'internal_use':
+                    # task = task = self.internal_use_task
+                    task = self.start_internal_use_server_worker
+                else:
+                    raise ValueError(f"未知的任务类型: {task_type}")
                 # 在事件循环中启动异步 HTTP 服务器
                 loop.run_until_complete(task())
             except Exception as e:
@@ -138,7 +148,8 @@ class ServerManager:
             if i <= http_server_cpu:
                 process = multiprocessing.Process(target=self.worker_process, args=('http_server',))  # 创建新进程，并传递核心索引
             else:
-                process = multiprocessing.Process(target=self.worker_process, args=('listen_file_change',))  # 创建新进程，并传递核心索引
+                # process = multiprocessing.Process(target=self.worker_process, args=('listen_file_change',))  # 创建新进程，并传递核心索引
+                process = multiprocessing.Process(target=self.worker_process, args=('internal_use',))  # 创建新进程，并传递核心索引
             processes.append(process)  # 将进程添加到进程列表中
             process.start()  # 启动进程
 
