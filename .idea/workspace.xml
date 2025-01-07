@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 写入框架">
-      <change afterPath="$PROJECT_DIR$/hot_reload/change_func_wl.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hot_reload/hy_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hot_reload/not_need/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hot_reload/not_need/hot_reload_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/validate_python_code.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: temp">
+      <change afterPath="$PROJECT_DIR$/api_func_set/server_api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload/try_by_self.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload2/check_file_change.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload2/check_file_change.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload2/check_file_change_by_os.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_file_change_by_os.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload2/check_file_change_copy.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_file_change_copy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload2/check_is_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload2/not_need_temp/check_is_update.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload2/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload2/not_need_temp/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/change_func_wl.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/change_func_wl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hot_reload/hy_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/hy_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,12 +43,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.change_func_wl.executor": "Run",
     "Python.check_file_change.executor": "Run",
     "Python.check_is_update.executor": "Run",
     "Python.demo.executor": "Run",
     "Python.funcSet.executor": "Run",
     "Python.getFuncDict.executor": "Run",
     "Python.hot_reload_main.executor": "Run",
+    "Python.hy_main.executor": "Run",
     "Python.main (1).executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_copy.executor": "Run",
@@ -65,6 +62,7 @@
     "Python.sub_test.executor": "Run",
     "Python.test_func.executor": "Run",
     "Python.traverse_folder.executor": "Run",
+    "Python.try_by_self.executor": "Run",
     "Python.validate_python_code.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -87,30 +85,8 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
-    <configuration name="check_file_change" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload2" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload2/check_file_change.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="hot_reload_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="change_func_wl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,7 +99,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload\not_need\hot_reload_main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/change_func_wl.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -132,7 +108,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -141,11 +117,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload\demo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,7 +152,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="validate_python_code" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -185,11 +161,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/http_frame" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/validate_python_code.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/http_frame/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="try_by_self" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/try_by_self.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -200,11 +198,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.validate_python_code" />
-        <item itemvalue="Python.hot_reload_main" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.check_file_change" />
+        <item itemvalue="Python.server" />
+        <item itemvalue="Python.try_by_self" />
+        <item itemvalue="Python.demo" />
+        <item itemvalue="Python.change_func_wl" />
       </list>
     </recent_temporary>
   </component>
@@ -352,7 +350,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735298554370</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="feat: temp">
+      <option name="closed" value="true" />
+      <created>1736136560165</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1736136560165</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,6 +386,7 @@
     <MESSAGE value="style: 删除不必要print" />
     <MESSAGE value="feat: 将进程绑定到固定的核心" />
     <MESSAGE value="feat: 写入框架" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 写入框架" />
+    <MESSAGE value="feat: temp" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: temp" />
   </component>
 </project>

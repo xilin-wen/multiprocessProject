@@ -86,14 +86,15 @@ class ServerManager:
             try:
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)  # 将新的事件循环设置为当前线程的默认事件循环
+                task = self.start_server_worker
                 # 根据 task_type 选择对应的函数并调用，返回协程对象
-                if task_type == 'http_server':
-                    task = self.start_server_worker
-                elif task_type == 'listen_file_change':
-                    watcher = FolderWatcher(folder_name="api_func_set")  # 创建监听器实例
-                    task = watcher.start_watch  # 选择文件变化监听任务
-                else:
-                    raise ValueError(f"未知的任务类型: {task_type}")
+                # if task_type == 'http_server':
+                #     task = self.start_server_worker
+                # elif task_type == 'listen_file_change':
+                #     watcher = FolderWatcher(folder_name="api_func_set")  # 创建监听器实例
+                #     task = watcher.start_watch  # 选择文件变化监听任务
+                # else:
+                #     raise ValueError(f"未知的任务类型: {task_type}")
                 # 在事件循环中启动异步 HTTP 服务器
                 loop.run_until_complete(task())
             except Exception as e:

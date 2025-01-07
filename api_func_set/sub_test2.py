@@ -4,7 +4,7 @@ data_hello = {"message": "Hello, world!"}
 data_goodbye = {"message": "Goodbye, world!"}
 
 # 定义多个路由处理函数
-@get_func_dict('/hello', method='get', token_required=False,)
+@get_func_dict('/hello', method='get', token_required=False)
 def handle_hello_test(ctx, data):
     body = {
         "ctx": ctx,

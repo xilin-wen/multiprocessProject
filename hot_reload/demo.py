@@ -26,9 +26,8 @@ class Manage:
             try:
                 # str->语法分析树
                 tree = ast.parse(obj_str)
-            except:
-                # 语法错误
-                raise Exception("document error")
+            except SyntaxError as e:
+                return e
             class_name = ""
             # 获得类名
             for node in ast.walk(tree):
@@ -69,7 +68,7 @@ if __name__ == "__main__":
     manage.add('''class func1:
     def __init__(self):
         # 这里传递一些需要的信心
-        self.func_name = "add_person"
+    self.func_name = "add_person"
         self.method = "POST"
         self.need_token = True
 
