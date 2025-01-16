@@ -13,7 +13,7 @@ import platform  # 用于判断操作系统类型
 from typing import Literal
 import psutil
 
-from http_frame.server import HTTPServer  # 导入 HTTPServer 类，用于处理 HTTP 请求
+from transport_layer_frame.http_frame.server import HTTPServer  # 导入 HTTPServer 类，用于处理 HTTP 请求
 
 
 class ServerManager:
@@ -139,7 +139,7 @@ class ServerManager:
         else:
             start_workers = num_workers
 
-        http_server_cpu = start_workers - special_project_tasks_cpu or 1 # 用于处理 http 请求的 cpu = 启动进程的 cpu - 执行特殊任务的 cpu
+        http_server_cpu = start_workers - special_project_tasks_cpu or 1 # 用于处理 http_frame 请求的 cpu = 启动进程的 cpu - 执行特殊任务的 cpu
 
         processes = [] # 用于存放所有子进程
 

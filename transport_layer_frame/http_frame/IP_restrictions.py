@@ -16,14 +16,16 @@ class NetworkUtils:
         """
         获取本地设备的局域网 IP 地址
         :return: 返回本地 IP 地址
+
+
         """
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.settimeout(0)
         try:
             s.connect(('8.8.8.8', 80))  # 连接 Google DNS 服务器，获取本地网络接口 IP 地址
-            local_ip = s.getsockname()[0]
+            local_ip = s.getsockname()[0] # 获取本地 IP 地址
         except Exception:
-            local_ip = '127.0.0.1'  # 如果连接失败，返回回环地址 --？
+            local_ip = '127.0.0.1'  # 如果连接失败，返回回环地址
         finally:
             s.close()
         return local_ip

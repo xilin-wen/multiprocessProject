@@ -13,7 +13,6 @@ def handle_hello(ctx, data):
         "ctx": ctx,
         "data": data
     }
-    # print(321)
     # res = client_func_handler.edit_func(data.func_str)
     # print(res)
     body.update(data_hello)

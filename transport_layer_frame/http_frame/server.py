@@ -1,5 +1,5 @@
 """
-文件描述: 本文件处理客户端和服务端之间的通信
+文件描述: 本文件实现了一个简单的异步 HTTP 服务器，处理客户端请求并与后台 API 交互。支持基本的 IP 限制、路由映射、请求数据解析、权限验证（如 Token 和角色验证）、响应返回等功能
 
 创建者: 汐琳
 创建时间: 2024-12-25 15:50:05
@@ -9,17 +9,40 @@ import json
 import urllib.parse
 import asyncio
 
-from http_frame.IP_restrictions import NetworkUtils
-from http_frame.send_http_response import send_http_response
+from transport_layer_frame.http_frame.IP_restrictions import NetworkUtils
+from transport_layer_frame.http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
 class HTTPServer:
+    """
+       HTTPServer 类提供了一个异步的 HTTP 服务器，处理客户端请求，验证请求的合法性，并将数据传递给后台 API 进行处理。
+
+       属性：
+       - port: 监听的端口号
+       - port_type: 服务器类型（如内网访问或客户端访问）
+       - route_handlers: 路由与 API 函数的映射关系
+       - import_api_func_dict: 存储从主进程导入的 API 函数字典
+       - allowed_ips: 外部允许访问的 IP 列表
+       - network_utils: 网络工具类实例，用于处理网络相关操作
+       - local_network_ips: 本机局域网 IP 地址段
+
+       方法：
+       - __init__: 初始化 HTTPServer 实例，设定端口、路由、IP 限制等配置。
+       - is_ip_allowed: 判断客户端 IP 是否被允许访问。
+       - serve_forever: 启动 HTTP 服务并开始监听客户端请求。
+       - parsing_data: 解析客户端传入的 HTTP 请求数据，提取请求头、请求体等信息。
+       - create_header: 创建响应的 HTTP 请求头，支持自定义 header 信息。
+       - handle_client: 处理客户端请求，解析请求、执行相应的 API 函数、并返回响应。
+       - start: 启动服务器并开始服务。
+       """
+
     def __init__(self, port, port_type, route_handlers, import_api_func_dict, allowed_ips=[]):
         self.port = port  # 服务器监听的端口
         self.port_type = port_type  # 服务器类型
         self.route_handlers = route_handlers # 路由和 api 函数的关系字典
-        self.allowed_ips = allowed_ips  # 外部允许的 IP 列表
         self.import_api_func_dict = import_api_func_dict # 在主进程中引入的 api 函数字典
+
+        self.allowed_ips = allowed_ips  # 外部允许的 IP 列表
         self.network_utils = NetworkUtils()  # 创建 NetworkUtils 实例
         self.local_network_ips = self.network_utils.get_local_network_ips()  # 获取本机局域网 IP 地址段
 
@@ -43,7 +66,9 @@ class HTTPServer:
         """
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # 允许端口复用 -- 虽然说 asyncio 是自主支持端口复用，但是如果不添加这句代码会报错，不允许复用端口
+
         server_socket.bind(('0.0.0.0', self.port))  # 绑定 IP 和端口
+
         server_socket.listen(5) # 开始监听，最多允许 5 个连接排队
 
         server = await asyncio.start_server(self.handle_client, sock=server_socket)  # 异步创建 TCP 服务器
@@ -157,14 +182,16 @@ class HTTPServer:
         :return:
         """
         try:
-            print("self.port_type", self.port_type)
             if self.port_type == "internal_use":
+                print("internal_use")
                 # 获取客户端的 IP 地址
                 client_ip = writer.get_extra_info('peername')[0]
 
                 # 检查 IP 是否被允许访问
                 if not self.is_ip_allowed(client_ip):
                     await send_http_response(writer, 403, "'错误':'IP 不允许访问'", {})
+            else:
+                print("client")
 
             # 解析接收到的信息
             parsing_data = await self.parsing_data(reader)
