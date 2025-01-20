@@ -67,12 +67,12 @@ class LampBeltControl:
         if scenario_type not in valid_types:
             raise ValueError(f"{scenario_type}场景错误")
 
-        print("config_data", config_data)
         battery = config_data.get("battery", 0)
         power = config_data.get("power", 0)
         delay = config_data.get("delay", 0)
         interval = config_data.get("interval", 0)
         duration = config_data.get("duration", 0)
+        ratio = config_data.get("ratio", 0)
 
         lamp_color = "rgb(255, 255, 255)" # 默认无色
         lamp_color_low = "rgb(0, 255, 0)" # 低程度默认值
@@ -88,62 +88,65 @@ class LampBeltControl:
         else:
             return "缺少必要参数：颜色"
 
-        if scenario_type == 'charging':
-            # 充电中：设置常亮灯泡并且最后一个闪烁
-            if battery:
-                num_lamp_work_charging = int(self.find_bulb_for_value(battery))
-                print("num_lamp_work_charging", num_lamp_work_charging)
+        try:
+            if scenario_type == 'charging':
+                # 充电中：设置常亮灯泡并且最后一个闪烁
+                if battery:
+                    num_lamp_work_charging = int(self.find_bulb_for_value(battery))
 
-                for index in range(num_lamp_work_charging - 1):
-                    self.write_single_config(colors=lamp_color, number_control_lamp=1, interval="False",
-                                             duration=duration, delay=delay)
+                    for index in range(num_lamp_work_charging - 1):
+                        self.write_single_config(colors=lamp_color, number_control_lamp=1, interval="False",
+                                                 duration=duration, delay=delay)
 
-                self.write_single_config(colors=lamp_color, number_control_lamp=1, interval=interval, duration=duration)
-            else:
-                # raise ValueError("缺少必要参数剩余电量 battery")
-                return "缺少必要参数剩余电量：battery"
-        elif scenario_type == 'in_operation':
-            # 运行中：所有灯泡常亮，整个灯带呈渐变色，并且灯泡的数量代表功率的强弱
-            if power:
-                color_set = self.generate_gradient_between_three_colors(lamp_color_low, lamp_color_middle, lamp_color_high)
+                    self.write_single_config(colors=lamp_color, number_control_lamp=1, interval=interval, duration=duration)
+                else:
+                    # raise ValueError("缺少必要参数剩余电量 battery")
+                    return "缺少必要参数剩余电量：battery"
+            elif scenario_type == 'in_operation':
+                # 运行中：所有灯泡常亮，整个灯带呈渐变色，并且灯泡的数量代表功率的强弱
+                if power:
+                    color_set = self.generate_gradient_between_three_colors(lamp_color_low, lamp_color_middle, lamp_color_high, ratio)
 
-                num_lamp_work = int(self.find_bulb_for_value(power))
+                    num_lamp_work = int(self.find_bulb_for_value(power))
 
-                for index in range(num_lamp_work):
-                    self.write_single_config(colors=color_set[index], number_control_lamp=1, interval=interval, duration=duration, delay=delay)
-            else:
-                return "缺少必要参数：机器功率"
-        elif scenario_type == 'fault':
-            r = 0
-            g = 0
-            b = 0
-            match = re.match(r"rgb\(([^,]+),([^\),]+),([^\)]+)\)", lamp_color)
-            if match:
-                # 提取 r, g, b 的值
-                r = float(match.group(1))
-                g = float(match.group(2))
-                b = float(match.group(3))
+                    for index in range(num_lamp_work):
+                        self.write_single_config(colors=color_set[index], number_control_lamp=1, interval=interval, duration=duration, delay=delay)
+                else:
+                    return "缺少必要参数：机器功率"
+            elif scenario_type == 'fault':
+                r = 0
+                g = 0
+                b = 0
+                match = re.match(r"rgb\(([^,]+),([^\),]+),([^\)]+)\)", lamp_color)
+                if match:
+                    # 提取 r, g, b 的值
+                    r = float(match.group(1))
+                    g = float(match.group(2))
+                    b = float(match.group(3))
 
-            color_str = self.generate_breathing_colors_from_rgb(r, g, b)
+                color_str = self.generate_breathing_colors_from_rgb(r, g, b)
 
-            # 故障中：红色中等速度的呼吸灯
-            self.write_single_config(colors=color_str, number_control_lamp=self.num_lamp, interval=interval, duration=duration, delay=delay)
-        elif scenario_type == 'in_running':
-            # 遥控器连接成功：跑马灯模式 --> 常亮，并且亮灯数量和颜色反应电量状态
-            if battery:
-                num_lamp_work_in_running = int(self.find_bulb_for_value(battery))
+                # 故障中：红色中等速度的呼吸灯
+                self.write_single_config(colors=color_str, number_control_lamp=self.num_lamp, interval=interval, duration=duration, delay=delay)
+            elif scenario_type == 'in_running':
+                # 遥控器连接成功：跑马灯模式 --> 常亮，并且亮灯数量和颜色反应电量状态
+                if battery:
+                    num_lamp_work_in_running = int(self.find_bulb_for_value(battery))
 
-                color_set = self.generate_gradient_between_three_colors(lamp_color_low, lamp_color_middle,
-                                                                        lamp_color_high)
+                    color_set = self.generate_gradient_between_three_colors(lamp_color_low, lamp_color_middle,
+                                                                            lamp_color_high, ratio)
 
-                for index in range(num_lamp_work_in_running):
-                    self.write_single_config(colors=color_set[index], number_control_lamp=1, interval=interval,
-                                             duration=duration, delay=delay, lamp_index=index)
-            else:
-                raise ValueError("缺少必要参数：剩余电量")
-        elif scenario_type == 'disconnect_remote':
-            # 遥控器连接失败：绿色中等速度闪烁
-            self.write_single_config(colors=lamp_color, number_control_lamp=self.num_lamp, interval=interval, duration=duration)
+                    for index in range(num_lamp_work_in_running):
+                        self.write_single_config(colors=color_set[index], number_control_lamp=1, interval=interval,
+                                                 duration=duration, delay=delay, lamp_index=index)
+                else:
+                    raise ValueError("缺少必要参数：剩余电量")
+            elif scenario_type == 'disconnect_remote':
+                # 遥控器连接失败：绿色中等速度闪烁
+                self.write_single_config(colors=lamp_color, number_control_lamp=self.num_lamp, interval=interval, duration=duration)
+
+        except Exception as e:
+            print(f"推导颜色数组失败: {e}")
 
         if len(self.return_lamp_array) < 19:
             num_cycles = self.num_lamp - len(self.return_lamp_array) or 1
@@ -207,7 +210,7 @@ class LampBeltControl:
         rgb_values = rgb_str.split(",")  # 分割为 r, g, b
         return tuple(int(float(value.strip())) for value in rgb_values)  # 先转换为 float，再转为整数
 
-    def generate_gradient_between_three_colors(self, color_first, color_second, color_third):
+    def generate_gradient_between_three_colors(self, color_first, color_second, color_third, first_ratio):
         """
             生成一个基于三个颜色的渐变列表。
 
@@ -251,33 +254,32 @@ class LampBeltControl:
 
             return gradient
 
+        print(first_ratio)
+        # 检查比例的有效性
+        if not (0 < first_ratio <= 1):
+            raise ValueError("比例值无效，请确保其大于0并小于等于1")
+
         # 将输入的 rgb 字符串转换为元组形式，方便后续处理
         color_first = self.rgb_to_tuple(color_first)
         color_second = self.rgb_to_tuple(color_second)
         color_third = self.rgb_to_tuple(color_third)
 
-        # 假设 num_lamp 为总步数，调整比例：首尾渐变各占 40%，中间部分占 20%
-        first_to_second_steps = int(self.num_lamp * 0.4) + 1  # 第一个渐变的步数
-        second_to_third_steps = int(self.num_lamp * 0.4) + 1  # 第二个渐变的步数
-        middle_steps = self.num_lamp - first_to_second_steps - second_to_third_steps  # 中间渐变的步数
+        # 计算每个部分的渐变步数，首尾部分各占 first_ratio，剩余部分占比 1 - first_ratio
+        first_to_second_steps = int(self.num_lamp * first_ratio)
+        second_to_third_steps = self.num_lamp - first_to_second_steps
 
-        # 计算从 color1 到 color2 的渐变
-        gradient1 = interpolate_color(color_first, color_second, first_to_second_steps)
+        # 计算从 color1 到 color2 的渐变，步数是总步数的一半
+        gradient1 = interpolate_color(color_first, color_second, first_to_second_steps + 1)
 
-        # 计算从 color2 到 color3 的渐变
+        # 计算从 color2 到 color3 的渐变，步数是剩余的
         gradient2 = interpolate_color(color_second, color_third, second_to_third_steps)
 
-        # 如果有中间渐变（即 middle_steps 大于 0），生成中间渐变的颜色
-        if middle_steps > 0:
-            # 计算从 color2 到 color3 的过渡渐变
-            middle_gradient = interpolate_color(color_second, color_third, middle_steps)
-            # 合并渐变时加上中间渐变部分
-            gradient_all = gradient1[:-1] + middle_gradient[1:-1] + gradient2
-        else:
-            # 没有中间渐变时，直接合并
-            gradient_all = gradient1[:-1] + gradient2
+        # 合并两个渐变列表，并避免重复添加 color2
+        gradient_all = gradient1[:-1] + gradient2  # 删除 gradient1 中的最后一个元素，防止中间重复 color2
 
+        # 返回最终的渐变颜色列表
         return gradient_all
+
 
     def find_bulb_for_value(self, value):
         """
@@ -285,23 +287,77 @@ class LampBeltControl:
         :param value:
         :return:
         """
-        # 灯泡权重设定
-        num_bulbs = self.num_lamp
-        # 从第二枚开始到结尾的灯泡对应的权重
-        subsequent_bulb_weight = (100 / self.num_lamp * 10) // 1 / 10
-        # 第一枚开灯泡对应的权重
-        first_bulb_weight = round(100 - subsequent_bulb_weight * (self.num_lamp - 1), 1)
 
-        # 计算所有灯泡的总权重
+        try:
+            # 灯泡权重设定
+            num_bulbs = self.num_lamp
+            # 从第二枚开始到结尾的灯泡对应的权重
+            subsequent_bulb_weight = (100 / self.num_lamp * 10) // 1 / 10
+            # 第一枚开灯泡对应的权重
+            first_bulb_weight = round(100 - subsequent_bulb_weight * (self.num_lamp - 1), 1)
 
-        # 计算给定值所处的总权重区间
-        normalized_value = (value / 100) * self.total_weight
+            # 计算所有灯泡的总权重
 
-        # 根据权重查找对应的灯泡
-        if normalized_value <= first_bulb_weight:
-            return 1  # 第一个灯泡
-        else:
-            # 从第二个灯泡开始，减去第一个灯泡的权重
-            remaining_value = normalized_value - first_bulb_weight
-            bulb_index = 2 + (remaining_value // subsequent_bulb_weight)
-            return min(bulb_index, num_bulbs)  # 确保返回的灯泡索引不超过 19
+            # 计算给定值所处的总权重区间
+            normalized_value = (value / 100) * self.total_weight
+
+            # 根据权重查找对应的灯泡
+            if normalized_value <= first_bulb_weight:
+                return 1  # 第一个灯泡
+            else:
+                # 从第二个灯泡开始，减去第一个灯泡的权重
+                remaining_value = normalized_value - first_bulb_weight
+                bulb_index = 2 + (remaining_value // subsequent_bulb_weight)
+                return min(bulb_index, num_bulbs)  # 确保返回的灯泡索引不超过 19
+
+        except Exception as e:
+            print(f"计算传入值对应第几枚灯泡失败: {e}")
+
+    # def generate_gradient(self, color_first, color_second, color_third, ratio_first, ratio_second):
+    #     # 将颜色从字符串转换为元组形式 (R, G, B)
+    #     def parse_color(color_str):
+    #         return tuple(map(int, color_str.split('(')[1].split(')')[0].split(',')))
+    #
+    #     # 颜色解析
+    #     cf = parse_color(color_first)
+    #     cs = parse_color(color_second)
+    #     ct = parse_color(color_third)
+    #
+    #     # 检查比例的有效性
+    #     if not (0 <= ratio_first <= 1 and 0 <= ratio_second <= 1 and ratio_first + ratio_second <= 1):
+    #         raise ValueError("比例值无效，请确保它们在0到1之间且总和不超过1")
+    #
+    #     # 渐变计算函数
+    #     def interpolate(start, end, t):
+    #         return int(start + (end - start) * t)
+    #
+    #     # 根据给定的比例划分数组长度
+    #     len_first = int(self.num_lamp * ratio_first)
+    #     len_second = int(self.num_lamp * ratio_second)
+    #     len_third = self.num_lamp - len_first - len_second
+    #
+    #     print("len_third===>", len_third)
+    #
+    #     gradient = []
+    #     for i in range(len_first):
+    #         t = i / len_first
+    #         r = interpolate(cf[0], cs[0], t)
+    #         g = interpolate(cf[1], cs[1], t)
+    #         b = interpolate(cf[2], cs[2], t)
+    #         gradient.append(f"rgb({r},{g},{b})")
+    #
+    #     for i in range(len_second):
+    #         t = i / len_second
+    #         r = interpolate(cs[0], ct[0], t)
+    #         g = interpolate(cs[1], ct[1], t)
+    #         b = interpolate(cs[2], ct[2], t)
+    #         gradient.append(f"rgb({r},{g},{b})")
+    #
+    #     for i in range(len_third):
+    #         t = i / len_third
+    #         r = interpolate(ct[0], cf[0], t)
+    #         g = interpolate(ct[1], cf[1], t)
+    #         b = interpolate(ct[2], cf[2], t)
+    #         gradient.append(f"rgb({r},{g},{b})")
+    #
+    #     return gradient

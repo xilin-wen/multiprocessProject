@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="fix: 修复代码">
-      <change afterPath="$PROJECT_DIR$/hot_reload/edit_func_main_copy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transport_layer_frame/http_frame/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="fix: 给灯泡发送指令">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test/sub_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload/edit_func_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/edit_func_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/IP_restrictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/http_frame/IP_restrictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/control_light_belt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/send_http_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/http_frame/send_http_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/http_frame/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/validate_python_code.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_func_set/control_light_belt.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/control_light_belt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,38 +35,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.change_func_wl.executor": "Run",
-    "Python.check_file_change.executor": "Run",
-    "Python.check_is_update.executor": "Run",
-    "Python.control_light_belt.executor": "Run",
-    "Python.demo.executor": "Run",
-    "Python.funcSet.executor": "Run",
-    "Python.getFuncDict.executor": "Run",
-    "Python.hot_reload_main.executor": "Run",
-    "Python.hy_main.executor": "Run",
-    "Python.main (1).executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_copy.executor": "Run",
-    "Python.module.executor": "Run",
-    "Python.multiprocess_server.executor": "Run",
-    "Python.save_func.executor": "Run",
-    "Python.server.executor": "Run",
-    "Python.server.main.executor": "Run",
-    "Python.start_server.executor": "Run",
-    "Python.sub_test.executor": "Run",
-    "Python.test_func.executor": "Run",
-    "Python.traverse_folder.executor": "Run",
-    "Python.try_by_self.executor": "Run",
-    "Python.validate_python_code.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload",
-    "settings.editor.selected.configurable": "actions.on.save"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.change_func_wl.executor&quot;: &quot;Run&quot;,
+    &quot;Python.check_file_change.executor&quot;: &quot;Run&quot;,
+    &quot;Python.check_is_update.executor&quot;: &quot;Run&quot;,
+    &quot;Python.control_light_belt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.funcSet.executor&quot;: &quot;Run&quot;,
+    &quot;Python.getFuncDict.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hot_reload_main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hy_main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_copy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.module.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multiprocess_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.save_func.executor&quot;: &quot;Run&quot;,
+    &quot;Python.server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.server.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.start_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sub_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_func.executor&quot;: &quot;Run&quot;,
+    &quot;Python.traverse_folder.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try_by_self.executor&quot;: &quot;Run&quot;,
+    &quot;Python.validate_python_code.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload" />
@@ -366,7 +355,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736136560165</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix: 给灯泡发送指令">
+      <option name="closed" value="true" />
+      <created>1736993614484</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1736993614484</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -395,6 +392,7 @@
     <MESSAGE value="feat: 将进程绑定到固定的核心" />
     <MESSAGE value="feat: 写入框架" />
     <MESSAGE value="feat: temp" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: temp" />
+    <MESSAGE value="fix: 给灯泡发送指令" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 给灯泡发送指令" />
   </component>
 </project>

@@ -20,7 +20,7 @@ async def echo(websocket):
 
             strip = LampBeltControl()
             res = strip.handle_scenario(scenario_type, color=color, config_data=config_data)
-            print(f"发送的消息: {res}")
+            print("发送的消息:")
 
             if res:
                 if isinstance(res, str):
