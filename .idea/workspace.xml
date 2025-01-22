@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="fix: 给灯泡发送指令">
+      <change afterPath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/feco_control.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/control_light_belt.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/control_light_belt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" beforeDir="false" afterPath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,38 +34,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.change_func_wl.executor&quot;: &quot;Run&quot;,
-    &quot;Python.check_file_change.executor&quot;: &quot;Run&quot;,
-    &quot;Python.check_is_update.executor&quot;: &quot;Run&quot;,
-    &quot;Python.control_light_belt.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.funcSet.executor&quot;: &quot;Run&quot;,
-    &quot;Python.getFuncDict.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hot_reload_main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hy_main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.module.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multiprocess_server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.save_func.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.start_server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sub_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_func.executor&quot;: &quot;Run&quot;,
-    &quot;Python.traverse_folder.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try_by_self.executor&quot;: &quot;Run&quot;,
-    &quot;Python.validate_python_code.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.change_func_wl.executor": "Run",
+    "Python.check_file_change.executor": "Run",
+    "Python.check_is_update.executor": "Run",
+    "Python.control_light_belt.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.feco_control.executor": "Run",
+    "Python.funcSet.executor": "Run",
+    "Python.getFuncDict.executor": "Run",
+    "Python.hot_reload_main.executor": "Run",
+    "Python.hy_main.executor": "Run",
+    "Python.main (1).executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_copy.executor": "Run",
+    "Python.module.executor": "Run",
+    "Python.multiprocess_server.executor": "Run",
+    "Python.save_func.executor": "Run",
+    "Python.server.executor": "Run",
+    "Python.server.main.executor": "Run",
+    "Python.start_server.executor": "Run",
+    "Python.sub_test.executor": "Run",
+    "Python.test_func.executor": "Run",
+    "Python.traverse_folder.executor": "Run",
+    "Python.try_by_self.executor": "Run",
+    "Python.validate_python_code.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev",
+    "ignore_missing_gitignore": "true",
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload",
+    "settings.editor.selected.configurable": "actions.on.save"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload" />
@@ -82,7 +82,7 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\http_frame" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.server.main">
+  <component name="RunManager" selected="Python.feco_control">
     <configuration name="control_light_belt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
@@ -97,6 +97,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/api_func_set/control_light_belt.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="feco_control" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/transport_layer_frame/websocket_frame" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/transport_layer_frame/websocket_frame/feco_control.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -171,35 +193,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="try_by_self" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hot_reload" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hot_reload/try_by_self.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.feco_control" />
         <item itemvalue="Python.server.main" />
         <item itemvalue="Python.control_light_belt" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.server" />
-        <item itemvalue="Python.try_by_self" />
       </list>
     </recent_temporary>
   </component>
@@ -363,7 +363,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736993614484</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fix: 给灯泡发送指令">
+      <option name="closed" value="true" />
+      <created>1737351557232</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1737351557232</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
