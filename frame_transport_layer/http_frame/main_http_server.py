@@ -9,8 +9,8 @@ import json
 import urllib.parse
 import asyncio
 
-from transport_layer_frame.http_frame.IP_restrictions import NetworkUtils
-from transport_layer_frame.http_frame.send_http_response import send_http_response
+from frame_transport_layer.http_frame.IP_restrictions import NetworkUtils
+from frame_transport_layer.http_frame.send_http_response import send_http_response
 from user.authority import Authority
 
 class HTTPServer:
@@ -202,8 +202,17 @@ class HTTPServer:
 
             # 找到并导入对应的 api 函数
             api_func_info = self.route_handlers.get(path, {}).get(method, {}) # 根据路由和请求方法，从 route_handlers 字典中获取本次请求对应的 api 函数的具体信息
+
+            if not api_func_info:
+                await send_http_response(writer, 404, "'错误':'路由不存在'", {})
+                return
+
             api_func_name = api_func_info.get("func_name")  # 获取 api 函数名称
             api_func = self.import_api_func_dict[api_func_name] # 从主进程中引入的所有 api 函数字典中国年获取本次请求所需的函数
+
+            if not api_func:
+                await send_http_response(writer, 500, "'错误':'API 处理函数未找到'", {})
+                return
 
             # 创建 header 信息
             return_headers = self.create_header()

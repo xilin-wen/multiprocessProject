@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: mysql增删改查，但是事务回滚未保证">
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: mysql增删改查，且保证事务回滚">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool_database/MySQLClient.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool_database/MySQLClient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_frame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_project/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_frame/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_project/multiprocess_server_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/http_frame/IP_restrictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/IP_restrictions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/http_frame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/http_frame/send_http_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/send_http_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/http_frame/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/feco_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/feco_control_serve.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control_serve.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +164,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="server.main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main_ws_server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,7 +177,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/transport_layer_frame/websocket_frame/server.main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\transport_layer_frame\websocket_frame\main_ws_server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -200,7 +211,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.MySQLClient" />
-        <item itemvalue="Python.server.main" />
+        <item itemvalue="Python.main_ws_server" />
         <item itemvalue="Python.feco_control_serve" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.feco_control" />
@@ -391,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738739169397</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="feat: mysql增删改查，且保证事务回滚">
+      <option name="closed" value="true" />
+      <created>1738739899269</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1738739899269</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,6 +442,7 @@
     <MESSAGE value="fix: 给灯泡发送指令" />
     <MESSAGE value="feat: 小车控制" />
     <MESSAGE value="feat: mysql增删改查，但是事务回滚未保证" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: mysql增删改查，但是事务回滚未保证" />
+    <MESSAGE value="feat: mysql增删改查，且保证事务回滚" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: mysql增删改查，且保证事务回滚" />
   </component>
 </project>
