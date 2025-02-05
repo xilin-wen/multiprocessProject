@@ -1,39 +1,37 @@
 import asyncio
-import websockets
 import json
-
+import websockets
 
 feco_real_time = dict({
-                                "battery": {
-                                    "percentage": 85,  # 电量百分比，范围0-100
-                                    "charging": False  # 是否正在充电，False 表示未充电，True 表示正在充电
-                                },
-                                "power": {
-                                    "blade1": 100,  # 1号刀盘功率，单位W
-                                    "blade2": 120,  # 2号刀盘功率，单位W
-                                    "blade3": 110,  # 3号刀盘功率，单位W
-                                    "motor1": 150,  # 1号行走电机功率，单位W
-                                    "motor2": 160   # 2号行走电机功率，单位W
-                                },
-                                "bladeSpeed": {
-                                    "blade1": 1200,  # 1号刀盘转速，单位RPM
-                                    "blade2": 1300,  # 2号刀盘转速，单位RPM
-                                    "blade3": 1250   # 3号刀盘转速，单位RPM
-                                },
-                                "motorSpeed": {
-                                    "motor1": 3.5,  # 1号行走电机速度，单位km/h
-                                    "motor2": 3.8   # 2号行走电机速度，单位km/h
-                                },
-                                "xyz": {
-                                    "x": 15.2,  # X轴角度，单位°
-                                    "y": 30.0,  # Y轴角度，单位°
-                                    "z": 45.0   # Z轴角度，单位°
-                                },
-                                "remote": True  # 遥控器连接状态，True 表示已连接，False 表示未连接
-                            })
+    "battery": {
+        "percentage": 85,  # 电量百分比，范围0-100
+        "charging": False  # 是否正在充电，False表示未充电，True表示正在充电
+    },
+    "power": {
+        "blade1": 100,  # 1号刀盘功率，单位W
+        "blade2": 120,  # 2号刀盘功率，单位W
+        "blade3": 110,  # 3号刀盘功率，单位W
+        "motor1": 150,  # 1号行走电机功率，单位W
+        "motor2": 160   # 2号行走电机功率，单位W
+    },
+    "bladeSpeed": {
+        "blade1": 1200,  # 1号刀盘转速，单位RPM
+        "blade2": 1300,  # 2号刀盘转速，单位RPM
+        "blade3": 1250   # 3号刀盘转速，单位RPM
+    },
+    "motorSpeed": {
+        "motor1": 3.5,  # 1号行走电机速度，单位km/h
+        "motor2": 3.8   # 2号行走电机速度，单位km/h
+    },
+    "xyz": {
+        "x": 15.2,  # X轴角度，单位°
+        "y": 30.0,  # Y轴角度，单位°
+        "z": 45.0   # Z轴角度，单位°
+    },
+    "remote": True  # 遥控器连接状态，True表示已连接，False表示未连接
+})
 update = dict({
-    "action": "",
-    "timestamp": ""
+    "action": "", # 推杆的动作，up, down, stop
 })
 
 class ChangeData:
@@ -96,49 +94,64 @@ class ChangeData:
 async def feco_date(websocket):
     print("新连接已建立...")
     try:
-        # 持续接收并回传客户端消息
         async for message in websocket:
-            message_json = json.loads(message)  # 将字符串解析为字典
+            try:
+                message_json = json.loads(message)
+                print(f"收到消息: {message_json}")
 
-            print(f"收到消息: {message_json}")
+                change_data = ChangeData(message_json)
+                res, msg = change_data.start()
 
-            change_data = ChangeData(message_json)
-            res, message = change_data.start()
+                send_res = {"status": 200 if res else 400, "message": msg}
+                print("发送的消息:", send_res)
 
-            send_res = {
-                "status": 200 if res else 400,
-                "message": message
-            }
-            print("发送的消息:",  send_res)
+                await websocket.send(json.dumps(send_res))
+            except json.JSONDecodeError:
+                error_msg = {"status": 400, "message": "JSON 格式错误"}
+                print("JSON 解码错误:", message)
+                await websocket.send(json.dumps(error_msg))
 
-            await websocket.send(json.dumps(send_res))
-
+    except websockets.ConnectionClosed as e:
+        print(f"连接关闭: {e.code} ({e.reason})")
     except Exception as e:
-        print(f"连接错误: {e}")
+        print(f"处理连接时出错: {e}")
     finally:
-        print("连接关闭")
+        print("连接已关闭")
 
-# 每 5 秒向客户端发送当前时间
+# 每 5 秒向客户端发送当前数据
 async def send_data(websocket):
-    while True:
-        await websocket.send(json.dumps(feco_real_time))
-        print(f"Sent: {feco_real_time}")
-        await asyncio.sleep(5)
+    try:
+        while True:
+            await websocket.send(json.dumps(feco_real_time))
+            print(f"发送数据: {feco_real_time}")
+            await asyncio.sleep(5)
+    except websockets.ConnectionClosed as e:
+        print(f"发送数据时连接关闭: {e.code} ({e.reason})")
+    except Exception as e:
+        print(f"发送数据时出错: {e}")
 
+# 定义 WebSocket 服务器的处理函数
+async def handle_connection(websocket):
+    try:
+        path = websocket.request.path
+        print(f"新请求路径: {path}")
+
+        if path == '/update':
+            await feco_date(websocket)
+        elif path == '/receive':
+            await send_data(websocket)
+        else:
+            await websocket.send(json.dumps({"status": 404, "message": "路由错误"}))
+            print("路由错误")
+    except Exception as e:
+        print(f"路由获取失败：{e}")
 
 # 启动 WebSocket 服务器
-async def start_server1():
-    server_show = await websockets.serve(send_data, "0.0.0.0", 8877)
+async def start_server():
+    server = await websockets.serve(handle_connection, "0.0.0.0", 8877)
     print("WebSocket 服务器已启动，监听端口 8877...")
-    await server_show.wait_closed()
-
-async def start_server2():
-    server_update = await websockets.serve(feco_date, "0.0.0.0", 8855)
-    print("WebSocket 服务器已启动，监听端口 8855...")
-    await server_update.wait_closed()
-
+    await server.wait_closed()
 
 # 运行事件循环
 if __name__ == "__main__":
-    asyncio.run(start_server1())
-    # asyncio.run(start_server2())
+    asyncio.run(start_server())
