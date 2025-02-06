@@ -1,10 +1,13 @@
 import ast
+import json
+
 from decoratorFunc.getFuncDict import route_handlers
 
 
 class HandleFuncFromClient:
     def __init__(self):
-        self.handle_class = dict()  # 初始化一个字典，用于存储正式上线的类方法
+        self.handle_class = route_handlers  # 初始化一个字典，用于存储正式上线的类方法
+        # self.handle_class = dict()  # 初始化一个字典，用于存储正式上线的类方法
         self.tmp_handle_class = dict()  # 初始化一个字典，用于存储临时的类方法（测试阶段）
 
     def edit_func(self, obj_str):  # 添加一个新的类定义（字符串形式），并进行处理
@@ -52,13 +55,13 @@ class HandleFuncFromClient:
 
     def delete(self, func_name):  # 删除方法：删除指定的路由和方法
         try:
-            if self.handle_class[func_name] and self.tmp_handle_class[func_name]:
-                # 删除方法：删除正式和临时方法
-                del self.handle_class[func_name]
-                del self.tmp_handle_class[func_name]
-            else:
-                print(f"{func_name} 函数不存在")
-                return False
+            # if self.handle_class[func_name] and self.tmp_handle_class[func_name]:
+            #     # 删除方法：删除正式和临时方法
+            #     del self.handle_class[func_name]
+            #     del self.tmp_handle_class[func_name]
+            # else:
+            #     print(f"{func_name} 函数不存在")
+            #     return False
             # 删除装饰器中的映射关系
             return self.remove_handler_by_func_name(func_name)
         except:
@@ -66,6 +69,7 @@ class HandleFuncFromClient:
 
     @staticmethod
     def remove_handler_by_func_name(func_name):
+        print("func_name===>", func_name)
         # 遍历所有路径和方法
         for path, methods in route_handlers.items():
             for method, handler in methods.items():
@@ -73,6 +77,7 @@ class HandleFuncFromClient:
                 if handler.get("func_name") == func_name:
                     try:
                         del methods[method]  # 删除当前 method 下的 handler
+                        print(json.dumps(route_handlers, indent=4, ensure_ascii=False))
                         return
                     except:
                         raise Exception(f"{route_handlers} 中的 {func_name} 函数删除失败")

@@ -10,7 +10,9 @@ import urllib.parse
 import asyncio
 
 from frame_transport_layer.http_frame.IP_restrictions import NetworkUtils
+from frame_transport_layer.http_frame.handle_websocket import WebSocketServer
 from frame_transport_layer.http_frame.send_http_response import send_http_response
+from frame_transport_layer.http_frame.send_websocket_response import send_ws_message
 from user.authority import Authority
 
 class HTTPServer:
@@ -183,7 +185,7 @@ class HTTPServer:
         """
         try:
             if self.port_type == "internal_use":
-                print("internal_use")
+                print("来自公司内部客户端的消息")
                 # 获取客户端的 IP 地址
                 client_ip = writer.get_extra_info('peername')[0]
 
@@ -191,7 +193,7 @@ class HTTPServer:
                 if not self.is_ip_allowed(client_ip):
                     await send_http_response(writer, 403, "'错误':'IP 不允许访问'", {})
             else:
-                print("client")
+                print("来自公司外部客户端的消息")
 
             # 解析接收到的信息
             parsing_data = await self.parsing_data(reader)
@@ -200,26 +202,17 @@ class HTTPServer:
 
             request, path, method, header_dict, data = parsing_data.values()
 
+            # 协议类型
+            protocol = 'WebSocket' if header_dict.get("Upgrade", "").lower() == "websocket" else 'HTTP'
+
+
             # 找到并导入对应的 api 函数
             api_func_info = self.route_handlers.get(path, {}).get(method, {}) # 根据路由和请求方法，从 route_handlers 字典中获取本次请求对应的 api 函数的具体信息
 
-            if not api_func_info:
-                await send_http_response(writer, 404, "'错误':'路由不存在'", {})
-                return
-
-            api_func_name = api_func_info.get("func_name")  # 获取 api 函数名称
-            api_func = self.import_api_func_dict[api_func_name] # 从主进程中引入的所有 api 函数字典中国年获取本次请求所需的函数
-
-            if not api_func:
-                await send_http_response(writer, 500, "'错误':'API 处理函数未找到'", {})
-                return
-
-            # 创建 header 信息
-            return_headers = self.create_header()
-
-            # 判断 token 是否有效，并从中获取有用信息
+            # 鉴权
             is_validate_token = api_func_info.get("token_required")
             is_validate_role = api_func_info.get("role_required")
+
             if is_validate_token:
                 # 从请求头中获取 Authorization 头部并提取 token
                 authorization = header_dict.get('Authorization', '')
@@ -227,22 +220,106 @@ class HTTPServer:
                 if authorization.startswith('Bearer '):
                     token = authorization[len('Bearer '):]  # 获取 Bearer 后面的 token
 
+                # 创建 header 信息
+                return_headers = self.create_header()
+
                 if token:
                     token_validate_result = Authority(token, verify_identity = is_validate_role, verify_token = is_validate_token)
                     decoded_token = token_validate_result.get_decoded_info()
                     if not token_validate_result:
-                        await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
+                        # 令牌已过期或无效
+                        if protocol == 'WebSocket':
+                            ws_server = WebSocketServer(writer, reader, header_dict)
+                            await ws_server.send_frame({
+                                "code": 401,
+                                "message": "'错误':'令牌已过期或无效'",
+                            })
+                        else:
+                            await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
                     else:
-                        response = api_func(ctx=decoded_token, data=data)
-                        await send_http_response(writer, response["code"], response["message"], return_headers, response["body"])
-                else:
-                    await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
-            else:
-                response = api_func({}, data)
-                await send_http_response(writer, response["code"], response["message"], return_headers, response["body"])
+                        api_func_detail= await self.get_api_function(api_func_info, protocol, writer, reader,
+                                                                        header_dict)
+                        api_func_name = api_func_detail["api_func_name"]
+                        api_func = api_func_detail["api_func"]
 
+                        # 令牌在有效期内，实现对应函数
+                        if protocol == 'WebSocket':
+                            ws_server = WebSocketServer(writer, reader, header_dict)
+                            await self.handle_websocket_server(ws_server, api_func, decoded_token)
+                        else:
+                            await self.handle_http_server(writer, api_func, data, decoded_token)
+                else:
+                    # 令牌已过期或无效
+                    if protocol == 'WebSocket':
+                        ws_server = WebSocketServer(writer, reader, header_dict)
+                        await ws_server.send_frame({
+                            "code": 401,
+                            "message": "'错误':'令牌已过期或无效'",
+                        })
+                    else:
+                        await send_http_response(writer, 401, "'错误':'令牌已过期或无效'", return_headers)
+
+            else:
+                # 无需鉴权，直接执行对应函数
+                api_func_detail  = await self.get_api_function(api_func_info, protocol, writer, reader, header_dict)
+                if api_func_detail:
+                    api_func_name = api_func_detail["api_func_name"]
+                    api_func = api_func_detail["api_func"]
+
+                    if protocol == 'WebSocket':
+                        ws_server = WebSocketServer(writer, reader, header_dict)
+                        await self.handle_websocket_server(ws_server, api_func)
+                    else:
+                        await self.handle_http_server(writer, api_func, data)
         finally:
             writer.close()  # 无论如何关闭客户端连接
+
+    async def handle_http_server(self, writer, api_func, data, ctx=None):
+        if ctx is None:
+            ctx = {}
+        return_headers = self.create_header()
+        response = api_func(ctx, data)
+        await send_http_response(writer, response["code"], response["message"], return_headers, response["body"])
+
+    @staticmethod
+    async def handle_websocket_server(ws_server, api_func, ctx=None):
+        if ctx is None:
+            ctx = {}
+        await ws_server.send_websocket_response()  # 升级协议
+        data = await ws_server.read_websocket_frame()  # 解析接收到的数据帧
+        response = api_func(ctx, data)
+        await ws_server.send_frame(response)
+
+    async def get_api_function(self, func_info, protocol, writer, reader, header_dict):
+        if not func_info:
+            if protocol == 'WebSocket':
+                ws_server = WebSocketServer(writer, reader, header_dict)
+                await ws_server.send_frame({
+                    "code": 404,
+                    "message": "'错误':'路由不存在'",
+                })
+                return False
+            else:
+                await send_http_response(writer, 404, "'错误':'路由不存在'", {})
+                return False
+        else:
+            api_func_name = func_info.get("func_name")  # 获取 api 函数名称
+            api_func = self.import_api_func_dict[api_func_name]  # 从主进程中引入的所有 api 函数字典中获取本次请求所需的函数
+
+            if not api_func:
+                if protocol == 'WebSocket':
+                    ws_server = WebSocketServer(writer, reader, header_dict)
+                    await ws_server.send_frame({
+                        "code": 500,
+                        "message": "'错误':'API 处理函数未找到'",
+                    })
+                else:
+                    await send_http_response(writer, 500, "'错误':'API 处理函数未找到'", {})
+            else:
+                return {
+                    "api_func_name": api_func_name,
+                    "api_func": api_func
+                }
 
     async def start(self):
         await self.serve_forever()  # 调用 serve_forever 协程
