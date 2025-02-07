@@ -12,6 +12,8 @@ import time
 import platform  # 用于判断操作系统类型
 from typing import Literal
 import psutil
+from multiprocessing import Queue
+
 from frame_transport_layer.http_frame.main_http_server import HTTPServer  # 导入 HTTPServer 类，用于处理 HTTP 请求
 
 
@@ -32,7 +34,6 @@ class ServerManager:
         self.processes = []  # 存储所有子进程对象
         self.os_type = platform.system()  # 获取操作系统类型
         self.cpu_cores_number = self.get_cpu_cores_count()  # 根据操作系统获取 CPU 核心数量
-        self.queue = multiprocessing.Queue()  # 用于进程间通信的队列
 
     def get_cpu_cores_count(self):
         """
@@ -86,13 +87,6 @@ class ServerManager:
     #     # 启动并行执行多个任务
     #     await asyncio.gather(print_time_periodically(self.os_type), other_task())
 
-    def update_route_dict(self):
-        """
-        该函数用于更新 route_dict，并通知所有进程。
-        """
-        updated_route_dict = {'/new_route': 'new_handler_function'}  # 示例更新
-        self.queue.put(updated_route_dict)  # 将更新发送到主进程
-
     def worker_process(self, task_type: Literal['http_server', 'listen_file_change', 'internal_use']):
         """
         单个进程的工作函数，运行 asyncio 事件循环，且处理进程中的异常，确保进程崩溃时会重启
@@ -122,6 +116,31 @@ class ServerManager:
                 if loop:
                     loop.close()  # 确保事件循环存在时关闭它
 
+    @staticmethod
+    def update_broadcast_loop(update_queue, shared_route_handlers, server_manager):
+        """
+        主进程的更新广播循环：
+        1. 从队列中获取子进程提交的更新请求。
+        2. 更新共享字典。
+        3. 广播更新给所有子进程。
+        """
+        while True:
+            try:
+                # 从队列中获取更新请求
+                action, key, value = update_queue.get_nowait()
+
+                # 更新共享字典
+                if action == "add":
+                    shared_route_handlers[key] = value
+                elif action == "remove":
+                    shared_route_handlers.pop(key, None)  # 修正为 shared_route_handlers
+
+                # 广播更新给所有子进程
+                server_manager.broadcast_update(action, key, value)
+            except Exception as e:
+                # 队列为空或其他异常
+                pass
+
     def graceful_exit(self, signum, frame):
         """
         捕获退出信号并优雅退出
@@ -132,18 +151,6 @@ class ServerManager:
         for process_item in self.processes:
             process_item.join()  # 等待子进程退出
         exit(0)
-
-    @staticmethod
-    def update_route_handlers(queue):
-        """
-        子进程函数，用于修改 route_handlers，并通知主进程。
-        """
-        new_route_handlers = {
-            '/new_route': 'new_handler_function',
-        }
-        # 假设您有新的路由处理程序需要添加
-        queue.put(new_route_handlers)
-        print("子进程已更新 route_handlers")
 
     def start_server(self):
         """
@@ -161,20 +168,25 @@ class ServerManager:
 
         http_server_cpu = start_workers - special_project_tasks_cpu or 1 # 用于处理 http_frame 请求的 cpu = 启动进程的 cpu - 执行特殊任务的 cpu
 
-        processes = [] # 用于存放所有子进程
 
-        # 创建 Queue 用于进程间通信
-        queue = multiprocessing.Queue()
+        processes = [] # 用于存放所有子进程
 
         # 启动多个子进程，并绑定进程到指定核心
         for i in range(start_workers):
             # 用于执行用户客户端的访问
             if i <= http_server_cpu:
                 process = multiprocessing.Process(target=self.worker_process, args=('http_server',))  # 创建新进程，并传递核心索引
-            # 用于执行用户客户端的访问
-            else:
+            # 用于执行公司客户端的访问
+            elif i <= start_workers - 2:
                 # process = multiprocessing.Process(target=self.worker_process, args=('listen_file_change',))  # 创建新进程，并传递核心索引
                 process = multiprocessing.Process(target=self.worker_process, args=('internal_use',))  # 创建新进程，并传递核心索引
+            # 单独启动一个进程，专门用于处理子进程之间的数据广播
+            else:
+                # 创建更新队列和共享字典
+                update_queue = Queue()
+                shared_route_handlers = self.route_dict.copy()  # 初始副本
+
+                process = multiprocessing.Process(target=self.update_broadcast_loop, args=(update_queue, shared_route_handlers, server_manager))  # 创建新进程，并传递核心索引
             processes.append(process)  # 将进程添加到进程列表中
             process.start()  # 启动进程
 
@@ -191,17 +203,6 @@ class ServerManager:
         # 捕获终止信号并优雅退出
         signal.signal(signal.SIGTERM, self.graceful_exit)
         signal.signal(signal.SIGINT, self.graceful_exit)
-
-        # 主进程监听 route_dict 的更新，并广播到所有子进程
-        while True:
-            updated_dict = self.queue.get()  # 阻塞，等待更新
-            self.route_dict.update(updated_dict)  # 更新主进程的 route_dict
-            # 广播更新到所有子进程
-            for process_item in self.processes:
-                process_item.terminate()  # 终止子进程以应用更新
-            time.sleep(2)  # 可选的延时，管理更新频率
-            for process_item in self.processes:
-                process_item.start()  # 重启子进程以应用更新
 
         # 等待所有进程结束
         for process_item in self.processes:

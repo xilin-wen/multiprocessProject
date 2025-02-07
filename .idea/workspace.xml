@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="style: 修改文件命名风格">
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/handle_websocket.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/send_websocket_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/multiprocessProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/multiprocessProject.iml" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 实现了查看 API 函数列表和接口文档，并实现了删除 API 函数，但是没有修改主进程的函数，这里需要进行修改">
+      <change afterPath="$PROJECT_DIR$/frame_project/multiprocess_server_main_copy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hot_reload/handle_route_api_set.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/server_api/handle_func_from_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_func_set/sub_test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_func_set/sub_test2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/decoratorFunc/getFuncDict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hot_reload/edit_func_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hot_reload/edit_func_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_project/multiprocess_server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_project/multiprocess_server_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Dataclass with Docstring" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -77,12 +72,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "dev",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/hot_reload",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/frame_project",
+    "settings.editor.selected.configurable": "fileTemplates"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_project" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload2" />
@@ -417,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738745134647</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat: 实现了查看 API 函数列表和接口文档，并实现了删除 API 函数，但是没有修改主进程的函数，这里需要进行修改">
+      <option name="closed" value="true" />
+      <created>1738830693211</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1738830693211</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -451,6 +455,7 @@
     <MESSAGE value="feat: mysql增删改查，但是事务回滚未保证" />
     <MESSAGE value="feat: mysql增删改查，且保证事务回滚" />
     <MESSAGE value="style: 修改文件命名风格" />
-    <option name="LAST_COMMIT_MESSAGE" value="style: 修改文件命名风格" />
+    <MESSAGE value="feat: 实现了查看 API 函数列表和接口文档，并实现了删除 API 函数，但是没有修改主进程的函数，这里需要进行修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现了查看 API 函数列表和接口文档，并实现了删除 API 函数，但是没有修改主进程的函数，这里需要进行修改" />
   </component>
 </project>
