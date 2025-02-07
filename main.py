@@ -1,4 +1,4 @@
-from frame_project.multiprocess_server_main import ServerManager
+from frame_project.main_multiprocess_server import ServerManager
 from script.traverse_folder import import_all_functions_in_folder
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ import asyncio
 import websockets
 import json
 
-from api_func_set.control_light_belt import LampBeltControl
+from api_func_set.feco_api.control_light_belt import LampBeltControl
 
 
 # 定义 WebSocket 服务器处理函数

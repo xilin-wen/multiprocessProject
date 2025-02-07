@@ -1,5 +1,5 @@
 from decoratorFunc.getFuncDict import get_func_dict, route_handlers
-from hot_reload.edit_func_main import HandleFuncFromClient
+from hot_reload.main_edit_func import HandleFuncFromClient
 from dataclasses import dataclass, field
 from typing import Optional, List
 

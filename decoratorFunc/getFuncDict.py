@@ -13,7 +13,7 @@ route_handlers = {}
 
 def get_func_dict(
         path: str,
-        method:Literal["get", "post", "put", "delete", "GET", "POST", "PUT", "DELETE", "ws"]='GET',
+        method:Literal["get", "post", "put", "delete", "GET", "POST", "PUT", "DELETE"]='GET',
         token_required: bool=True,
         role_required: bool=False
 ):
@@ -21,7 +21,7 @@ def get_func_dict(
     路由装饰器，支持开启鉴权。
 
     :param path: 路由路径
-    :param method: 请求方法，默认为 'GET', 'ws'为 websocket 通信
+    :param method: 请求方法，默认为 'GET'
     :param token_required: 是否需要 Token 鉴权，默认 True
     :param role_required: 是否需要角色鉴权，默认 False
     :return: 装饰后的函数
@@ -31,9 +31,6 @@ def get_func_dict(
     get_func_dict.__is_decorator__ = True
 
     def decorator(func):
-        # tree = ast.parse(obj_str)
-        # print("语法树的详细信息===>", ast.dump(tree, indent=4))
-
         # 获取被装饰函数的文件路径
         file_path = inspect.getfile(func)
         # 获取文件的绝对路径
@@ -53,7 +50,6 @@ def get_func_dict(
             file_without_extension = os.path.splitext(relative_path)[0]
             # 使用 pathlib 将路径分割为模块路径
             module_path = str(Path(file_without_extension).with_suffix('')).replace(os.sep, '.')
-            # print("func===>", func.__doc__)
         else:
             # 如果路径无法匹配 api_func_set，给出错误提示或处理
             raise ValueError(f"'{func.__name__}' 函数不在 'api_func_set' 文件夹下。")
@@ -67,8 +63,7 @@ def get_func_dict(
             "token_required": token_required,
             "role_required": role_required,
             "module_path": module_path,
-            "func_name": func.__name__, # 新增函数名
-            "func_doc": func.__doc__,  # 函数的文档
+            "func_name": func.__name__  # 新增函数名
         }
 
         # 返回原函数

@@ -1,5 +1,5 @@
 from decoratorFunc.getFuncDict import get_func_dict
-from hot_reload.edit_func_main import HandleFuncFromClient
+from hot_reload.main_edit_func import HandleFuncFromClient
 
 data_hello = {"message": "Hello, world!"}
 data_goodbye = {"message": "Goodbye, world!"}
