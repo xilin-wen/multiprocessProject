@@ -1,7 +1,18 @@
+from pathlib import Path
+
 from frame_project.main_multiprocess_server import ServerManager
+from script.save_project_root_path import save_project_root_path
 from script.traverse_folder import import_all_functions_in_folder
 
+
+def get_project_root_path():
+    # 获取并持久化保存  main.py 所在的目录（即项目根目录）
+    project_root = Path(__file__).resolve().parent # 通过 main.py 通常处于项目根目录的特性获取项目的根目录路径
+    save_project_root_path(project_root)
+
 if __name__ == "__main__":
+    get_project_root_path()
+
     """
     这里文件的动态引入和 route_dict 字典的传递有三种用法：
         第一种：将下述两行代码放在文件最顶端，所有模块和路由处理程序都在主进程中加载，而主程序在启动子程序的时候会复制一份资源到子程序的内存中，这样子进程就无需重新加载，子进程可以直接使用主进程中加载的资源（例如，路由处理程序）来减少冗余开销
@@ -15,3 +26,5 @@ if __name__ == "__main__":
 
     server_manager = ServerManager(8866, 8888, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
     server_manager.start_server()  # 启动服务器
+
+
