@@ -50,7 +50,7 @@ class ChangeData:
         - path: 用于记录当前字段的路径（字符串）
         返回值：
         - 如果验证成功，返回 (True, None)；
-        - 如果验证失败，返回 (False, 错误字段的路径)。
+        - 如果验证失败，返回 (False, 错误字段的路径)
         """
         if not data: data = self.input
         if not template: template = self.feco_real_time
