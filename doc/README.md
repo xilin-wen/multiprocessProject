@@ -1,6 +1,6 @@
 ## 项目简介
 
-[本项目](https://github.com/xilin-wen/multiprocessProject.git ) 是基于Python + MySQL 等技术栈构建的小铁割草机小程序后端项目
+[本项目](https://github.com/xilin-wen/multiprocessProject.git ) 是基于 [Python](https://docs.python.org/zh-cn/3/index.html) + [MySQL](https://www.mysqlzh.com/) 等技术栈构建的小铁割草机小程序后端项目
 
 ## 项目文档
 
@@ -50,12 +50,11 @@
 │   └── MySQLClient.py   # MySQL 增删改查的使用
 └── user
     └── authority.py
-
 ```
 
 ### 项目结构更新
 
-对文件或文件夹进行增删改之后，在终端执行 `python script/project_tree_print.py`，`README.md`中【项目目录】将自动更新，原有注释不会删除
+对文件或文件夹进行增删改之后，在终端执行 `python script/project_tree_print.py`，`README.md`中【项目目录】将自动更新，原有注释不会被删除
 
 ```bash
 python script/project_tree_print.py
@@ -65,7 +64,7 @@ python script/project_tree_print.py
 
 在提交`git`时，需要标注提交类型
 
-[^注]: 提交类型后需要跟上英文冒号和空格键
+注: 提交类型后需要跟上英文冒号和空格键
 
 ```bash
 git commit -m "提交类型: 提交内容"
@@ -74,7 +73,7 @@ git commit -m "提交类型: 提交内容"
 【提交类型】：
 
 - `feat`：新功能
-- `fix`：修复`bug`
+- `fix`：修复 bug
 - `doc`：文档变更
 - `style`：代码风格变动
 - `refactor`：代码重构

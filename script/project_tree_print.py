@@ -106,18 +106,21 @@ class PrintProjectTree:
             md_tree_file_name_set = re.search(r"([A-Za-z]\S*)\s*(#.*)?", md_tree_file_line)
             md_folder_title = md_tree_file_name_set.group(1)  # 提取文件或文件夹的名称
             md_annotation = md_tree_file_name_set.group(2).strip() if md_tree_file_name_set.group(2) else ""  # 提取注释部分，若没有注释则为空字符串
-            md_title_annotation[md_folder_title] = md_annotation
+            md_title_annotation[md_folder_title] = md_annotation    # 用字典将文件名和注释关联起来
 
         new_md_tree_content = ""
         for index, new_tree_line in enumerate(new_tree_lines):
             new_tree_file_name_set = re.search(r"([A-Za-z]\S*)", new_tree_line)
             new_tree_file_name = new_tree_file_name_set.group()
-            md_annotation_copy = md_title_annotation.get(new_tree_file_name, "")
+            md_annotation_copy = md_title_annotation.get(new_tree_file_name, "")    # 获取文件名对应的注释
+
+            # 将注释添加到对应文件名后
             if md_annotation_copy:
                 new_md_tree_content = new_md_tree_content + new_tree_line + '   ' + md_annotation_copy + '\n'
             else:
                 new_md_tree_content += new_tree_line+ '\n'
 
+        new_md_tree_content = new_md_tree_content[:-1] if new_md_tree_content.endswith('\n') else new_md_tree_content # 删除掉文末的最后一个换行符
         self.md_tree = new_md_tree_content
 
         # 新增文件、删除文件、修改名称，都好要命啊
