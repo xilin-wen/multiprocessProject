@@ -12,13 +12,8 @@ from typing import List
 class Branch:
     branch_id: str  # 网点id
     branch_name: str  # 网点名称
-    branch_location: List[int]  # 网点地址
-    branch_buyOrderList: List[str]  # 购买订单列表
-    branch_troubleOrderList: List[str]  # 故障订单列表
-    branch_maintainOrderList: List[str]  # 维护订单列表
-
+    branch_log_lat: tuple[float, float]  # 网点经纬度坐标
     administrator_id: str  # 网点超管id
-
 
 @dataclass
 class Administrator:
@@ -33,7 +28,6 @@ class Administrator:
 
     administrator_belong_branch_id: str  # 所属网点id
 
-
 @dataclass
 class ComplaintRecord:
     complaint_record_id: str  # 投诉记录id
@@ -47,64 +41,59 @@ class ComplaintRecord:
     complaint_record_end_time: str  # 投诉结束时间
     order_service_work_id: str  # 被投诉的服务类工单Id
 
+@dataclass
+class OrderSalesWork:
+    order_sales_work_id: str  # 销售工单id
+    order_sales_work_create_time: str  # 创建时间 YYYY-MM-DD HH:mm:ss
+    order_sales_work_type: int  # 销售工单类型：1-整机；2-零部件
+    order_sales_work_status: int  # 销售工单状态：1-正常；2-撤销
+    machine_id: str  # 机器序列码
+
+    consumer_id: str  # 用户id（服务对象id）
+    branch_id: str  # 销售者id
+    machine_main_id: str  # 整机id --销售主机时为空，销售零部件时是主体
+    order_service_work_id: str  # 销售工单类型为整机时为空，为零部件时，需要挂在维修工单上
+    # productFactoryVersionInfo: productFactoryVersion[]  # 产品在平台的记录表
 
 @dataclass
 class OrderServiceWork:
     order_service_work_id: str  # 工单id
-    order_service_work_type: int  # 工单类型：1-维修工单；2-保养工单
+    order_service_work_type: int  # 维修/保养类型；1-保养，2-动力，3-外观，4-控制，5-未知
     order_service_work_source: int  # 工单来源：1-用户主动申报；2-系统检测；3-商家自主创建
     order_service_work_status: int  # 工单状态：1-待受理（该状态下需要将订单指派到具体执行人身上，包括管理或超管）；2-处理中；3-执行完成
     order_service_work_create_time: str  # 创建时间 YYYY-MM-DD HH: mm:ss
     order_service_work_process_time: str  # 受理时间 YYYY-MM-DD HH: mm:ss
     order_service_work_finish_time: str  # 结束时间 YYYY-MM-DD HH: mm:ss
-    order_service_work_type: int  # 维修/保养类型；1-保养，2-动力，3-外观，4-控制，5-未知
     order_service_work_content: str  # 工单服务内容
+    # order_service_work_price: int  # 成交价格
 
-    machine_serial_id: str  # 机器id
+    machine_id: str  # 机器id
     consumer_id: str  # 用户id（服务对象id）
-    branch_id: str  # 网点id（不排除工作人员从网点A换到了网点B工作的可能，这种情况在评分时需要保证是在当前网点时的工单）
-    components_type_id: List[str]  # 购买（零部件）订单列表
-    service_orderId: str  # 用户提交的订单id
+    branch_id: str  # 网点id
+    order_sales_work_id: List[OrderSalesWork]  # 购买（零部件）订单列表
+    service_order_id: str  # 用户提交的订单id
 
-    complaintRecordList: List[ComplaintRecord]  # 投诉记录
+    complaint_record_id: str  # 投诉记录
 
-    scoringRecordId: str  # 评分记录id
-
+    scoring_record_id: str  # 评分记录id
 
 @dataclass
 class ScoringRecord:
     scoring_record_id: str  # 评分记录id
-    scoringRespondingSpeedByUser: int  # 响应速度评分
-    scoringServiceQualityByUser: int  # 服务质量评分
-    scoringTime: str  # 评分时间 YYYY-MM-DD HH:mm:ss
-    respondingSpeedBySystem: int  # 系统自测响应速度评分
+    scoring_responding_speed_user: int  # 响应速度评分
+    scoring_service_quality_user: int  # 服务质量评分
+    scoring_time_user: str  # 评分时间 YYYY-MM-DD HH:mm:ss
+    responding_speed_system: int  # 系统自测响应速度评分
 
     consumer_id: str  # 评分用户id
     branch_id: str  # 网点id
     order_service_work_id: str  # 用户服务订单id
 
-
-@dataclass
-class OrderSalesWork:
-    Order_sales_work_id: str  # 销售工单id
-    Order_sales_work_create_time: str  # 创建时间 YYYY-MM-DD HH:mm:ss
-    Order_sales_work_type: int  # 销售工单类型：1-整机；2-零部件
-    Order_sales_work_status: int  # 销售工单状态：1-正常；2-撤销
-    machine_serial_id: str  # 机器序列码
-
-    consumer_id: str  # 用户id（服务对象id）
-    branch_id: str  # 销售者id
-    machineId: str  # 整机id --销售主机时为空，销售零部件时是主体
-    serviceWorkOrder: str  # 销售工单类型为整机时为空，为零部件时，需要挂在维修工单上
-    # productFactoryVersionInfo: productFactoryVersion[]  # 产品在平台的记录表
-
-
 @dataclass
 class OrderPurchaseItem:
-    order_purchase_item_: str  # _id
+    order_purchase_item_id: str  # _id
     product_id: str  # 产品id
     product_quantity: int  # 产品数量
-
 
 @dataclass
 class OrderPurchase:
@@ -114,11 +103,8 @@ class OrderPurchase:
     order_purchase_end_Time: str  # 采购工单结束时间 YYYY-MM-DD HH:mm:ss
 
     branch_id: str  # 网点id
-    purchaseOrderItem: List[OrderPurchaseItem]  # 采购明细
+    purchase_order_item: List[OrderPurchaseItem]  # 采购明细
     # deliveryInfo: deliveryToBranch[]  # 出库订单
-    rejectPurchaseOrderRecordId: str  # 平台拒绝-申诉等
-    # rejectPurchaseOrderRecord?: rejectPurchaseOrderRecord  # 申诉主表
-
 
 @dataclass
 class MessageBranch:
