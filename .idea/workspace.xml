@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="chore: 新增生成树形项目目录并覆盖到README.md文件中">
-      <change afterPath="$PROJECT_DIR$/tool_package/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_package/project_tree_print.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_package/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/Internal.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/Internal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/branch.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/branch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/consumer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/project_tree_print.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/project_tree_print.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/save_project_root_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/save_project_root_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool_package/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool_package/project_tree_print.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool_package/utils.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +96,7 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\hot_reload\not_need" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.project_tree_print">
+  <component name="RunManager" selected="Python.test">
     <configuration name="feco_control_serve (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
@@ -214,8 +209,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.project_tree_print" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.project_tree_print" />
         <item itemvalue="Python.xml_to_mermaid" />
         <item itemvalue="Python.main_ws_server (1)" />
         <item itemvalue="Python.feco_control_serve (1)" />
@@ -446,7 +441,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739247334985</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="chore: 新增生成树形项目目录并覆盖到README.md文件中">
+      <option name="closed" value="true" />
+      <created>1739432623261</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1739432623261</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
