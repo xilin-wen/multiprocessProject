@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="chore: 修改生成树脚本">
-      <change afterPath="$PROJECT_DIR$/api_func_set/server_api/get_serve_module.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dicts/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dicts/http_status.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_package/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_package/import_server_module.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_package/test.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="chore: 动态引入import网络连接">
+      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_websocket_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/http_frame/send_http_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/send_http_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/feco_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control_serve.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/feco_control_serve.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/main_ws_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,14 +98,14 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\script" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame\feco" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\dicts" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\doc" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set\feco_api" />
-      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\transport_layer_frame\http" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.import_server_module">
+  <component name="RunManager" selected="Python.main_ws_server">
     <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
@@ -191,7 +185,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame\feco\main_ws_server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -202,10 +196,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main_ws_server" />
         <item itemvalue="Python.import_server_module" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.config" />
-        <item itemvalue="Python.main_ws_server" />
       </list>
     </recent_temporary>
   </component>
@@ -457,7 +451,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739440690598</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="chore: 动态引入import网络连接">
+      <option name="closed" value="true" />
+      <created>1739756328904</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1739756328904</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -523,6 +525,7 @@
     <MESSAGE value="chore: 新增生成树形项目目录并覆盖到README.md文件中" />
     <MESSAGE value="doc: 更新README.md文件" />
     <MESSAGE value="chore: 修改生成树脚本" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: 修改生成树脚本" />
+    <MESSAGE value="chore: 动态引入import网络连接" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: 动态引入import网络连接" />
   </component>
 </project>
