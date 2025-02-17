@@ -6,6 +6,9 @@
 """
 import json  # 导入 JSON 模块
 
+from dicts.http_status import http_status_codes
+
+
 async def send_http_response(writer, status_code=200, status_message="请求成功", headers=None, body=None):
     """
     构造并发送一个完整的 HTTP 响应（异步版本）。
@@ -18,23 +21,36 @@ async def send_http_response(writer, status_code=200, status_message="请求成�
     """
     # 初始化响应头部
     if headers is None:
-        headers = {"Content-Type": "application/json"}
-
-    # 构造状态行
-    status_line = f"HTTP/1.1 {status_code} {status_message}\r\n"
+        headers = {"Content-Type": "application/json; charset=utf-8"}
 
     # 构造响应体
     if body:
-        body_bytes = json.dumps(body, ensure_ascii=False).encode()  # 将 JSON 数据转换为字节流
-        headers["Content-Length"] = str(len(body_bytes))  # 自动计算并设置 Content-Length
+        try:
+            return_body = {
+                "code": status_code,
+                "message": status_message,
+                "data": body
+            }
+            body_bytes = json.dumps(return_body, ensure_ascii=False).encode()  # 将 JSON 数据转换为字节流
+            headers["Content-Length"] = str(len(body_bytes))  # 自动计算并设置 Content-Length
+        except (TypeError, ValueError) as e:
+            # 如果 body 无法转换为 JSON，设置错误响应
+            status_code = 500
+            status_message = "Internal Server Error"
+            body = {"error": str(e)}
+            body_bytes = json.dumps(body, ensure_ascii=False).encode()
+            headers["Content-Length"] = str(len(body_bytes))
     else:
         body_bytes = b""
         headers["Content-Length"] = "0"
 
+    # 构造状态行
+    # status_line = f"HTTP/1.1 200 OK\r\n"
+    http_status_code = http_status_codes[status_code]
+    status_line = f"HTTP/1.1 {status_code} {http_status_code}\r\n"
+
     # 构造头部
-    header_lines = ""
-    for header_name, header_value in headers.items():
-        header_lines += f"{header_name}: {header_value}\r\n"
+    header_lines = "".join([f"{k}: {v}\r\n" for k, v in headers.items()])
 
     # 完整的响应：状态行 + 头部 + 空行
     response = status_line + header_lines + "\r\n"
@@ -42,5 +58,6 @@ async def send_http_response(writer, status_code=200, status_message="请求成�
     # 使用 writer 异步发送响应数据
     writer.write(response.encode())  # 发送状态行和头部
     if body_bytes:
+        print(body_bytes)
         writer.write(body_bytes)  # 如果有响应体，发送响应体
     await writer.drain()  # 确保数据完全发送

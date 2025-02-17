@@ -36,8 +36,8 @@ async def echo(websocket):
 
 # 启动 WebSocket 服务器
 async def start_server():
-    server = await websockets.serve(echo, "0.0.0.0", 8765)
-    print("WebSocket 服务器已启动，监听端口 8765...")
+    server = await websockets.serve(echo, "0.0.0.0", 3001)
+    print("WebSocket 服务器已启动，监听端口 3001...")
     await server.wait_closed()
 
 

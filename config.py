@@ -6,6 +6,5 @@
 创建者: 汐琳
 创建时间: 2025/2/8 10:04
 """
-
 # 项目根路径，初始为None，在 main.py 启动时赋值
 PROJECT_ROOT = 'C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject'
