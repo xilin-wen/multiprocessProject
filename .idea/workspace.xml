@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="chore: 动态引入import网络连接">
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_websocket_server.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="revert: 回滚">
+      <change afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server_copy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/handle_websocke.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/send_websocker_resopnse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/feco_control.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco_control_serve.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/feco_control_serve.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/main_ws_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/feco/main_ws_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,17 +84,17 @@
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "dev",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/my_test",
+    "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/frame_transport_layer/http_frame",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\http_frame" />
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\my_test" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\tool_package" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\my_test\print_tree" />
-      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\test" />
-      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\script" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame\feco" />
@@ -105,7 +104,7 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set\feco_api" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main_ws_server">
+  <component name="RunManager" selected="Python.main">
     <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
@@ -196,9 +195,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.main_ws_server" />
         <item itemvalue="Python.import_server_module" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.config" />
       </list>
     </recent_temporary>
@@ -459,7 +458,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739756328904</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="docs: 文件更换位置">
+      <option name="closed" value="true" />
+      <created>1739778819814</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1739778819814</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -501,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: serve" />
     <MESSAGE value="feat: 备份" />
     <MESSAGE value="feat: 封装http框架" />
     <MESSAGE value="feat: 修改为协程前的备份" />
@@ -526,6 +532,7 @@
     <MESSAGE value="doc: 更新README.md文件" />
     <MESSAGE value="chore: 修改生成树脚本" />
     <MESSAGE value="chore: 动态引入import网络连接" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: 动态引入import网络连接" />
+    <MESSAGE value="docs: 文件更换位置" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: 文件更换位置" />
   </component>
 </project>
