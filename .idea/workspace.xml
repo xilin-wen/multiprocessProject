@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="revert: 回滚">
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server_copy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/handle_websocke.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frame_transport_layer/websocket_frame/send_websocker_resopnse.py" afterDir="false" />
+    <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: ws框架（暂定）">
+      <change afterPath="$PROJECT_DIR$/learning_materials/import引入资料.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_test_doc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tool_package/remote_importer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_transport_layer/http_frame/main_http_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frame_project/main_multiprocess_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/frame_project/main_multiprocess_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool_package/import_server_module.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +42,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python 测试.Python 测试 (main.py 内).executor": "Run",
+    "Python 测试.Python 测试 (test.py 内).executor": "Debug",
+    "Python 测试.Python 测试 (test_finder.py 内).executor": "Run",
+    "Python 测试.main.executor": "Run",
     "Python.MySQLClient.executor": "Run",
     "Python.change_func_wl.executor": "Run",
     "Python.check_file_change.executor": "Run",
@@ -61,11 +67,19 @@
     "Python.main (1).executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_copy.executor": "Run",
+    "Python.main_multiprocess_server.executor": "Run",
+    "Python.main_remote_module_loader.executor": "Run",
     "Python.main_ws_server (1).executor": "Run",
     "Python.main_ws_server.executor": "Run",
     "Python.module.executor": "Run",
     "Python.multiprocess_server.executor": "Run",
+    "Python.my_test_doc.executor": "Run",
+    "Python.my_test_finder.executor": "Run",
+    "Python.my_test_first.executor": "Run",
+    "Python.my_test_second.executor": "Run",
     "Python.project_tree_print.executor": "Run",
+    "Python.remote_importer (1).executor": "Run",
+    "Python.remote_importer.executor": "Run",
     "Python.save_func.executor": "Run",
     "Python.server.executor": "Run",
     "Python.server.main.executor": "Run",
@@ -85,7 +99,7 @@
     "git-widget-placeholder": "dev",
     "ignore_missing_gitignore": "true",
     "last_opened_file_path": "C:/Users/xiaoh/PycharmProjects/multiprocessProject/multiprocessProject/frame_transport_layer/http_frame",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "cn.yiiguxing.plugin.translate"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -97,58 +111,14 @@
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\my_test\print_tree" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\learning_materials" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame\feco" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\dicts" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject" />
       <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\doc" />
-      <recent name="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\api_func_set\feco_api" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/config.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="import_server_module" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="multiprocessProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tool_package" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tool_package/import_server_module.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
@@ -171,7 +141,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main_ws_server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main_multiprocess_server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="multiprocessProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -180,11 +150,77 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/frame_transport_layer/websocket_frame" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/frame_project" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\frame_transport_layer\websocket_frame\feco\main_ws_server.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/frame_project/main_multiprocess_server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="my_test_doc" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/my_test_doc.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="remote_importer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tool_package" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tool_package/remote_importer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="remote_importer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="multiprocessProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tool_package" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\xiaoh\PycharmProjects\multiprocessProject\multiprocessProject\tool_package\remote_importer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -196,9 +232,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.main_ws_server" />
-        <item itemvalue="Python.import_server_module" />
-        <item itemvalue="Python.config" />
+        <item itemvalue="Python.my_test_doc" />
+        <item itemvalue="Python.main_multiprocess_server" />
+        <item itemvalue="Python.remote_importer" />
       </list>
     </recent_temporary>
   </component>
@@ -466,7 +502,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739778819814</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat: ws框架（暂定）">
+      <option name="closed" value="true" />
+      <created>1739936664124</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1739936664124</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -508,7 +552,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 备份" />
     <MESSAGE value="feat: 封装http框架" />
     <MESSAGE value="feat: 修改为协程前的备份" />
     <MESSAGE value="feat: 将请求修改为协程" />
@@ -533,6 +576,7 @@
     <MESSAGE value="chore: 修改生成树脚本" />
     <MESSAGE value="chore: 动态引入import网络连接" />
     <MESSAGE value="docs: 文件更换位置" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: 文件更换位置" />
+    <MESSAGE value="feat: ws框架（暂定）" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: ws框架（暂定）" />
   </component>
 </project>

@@ -1,8 +1,9 @@
+import sys
 from pathlib import Path
-
 from frame_project.main_multiprocess_server import ServerManager
 from script.save_project_root_path import save_project_root_path
 from script.traverse_folder import import_all_functions_in_folder
+from tool_package.remote_importer import RemoteMetaFinder
 
 
 def get_project_root_path():
@@ -12,6 +13,9 @@ def get_project_root_path():
 
 if __name__ == "__main__":
     get_project_root_path()
+
+    # 将自定义的远程模块加载器添加到 sys.meta_path 中
+    sys.meta_path.insert(0, RemoteMetaFinder())
 
     """
     这里文件的动态引入和 route_dict 字典的传递有三种用法：
@@ -26,5 +30,3 @@ if __name__ == "__main__":
 
     server_manager = ServerManager(3001, 8888, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
     server_manager.start_server()  # 启动服务器
-
-
