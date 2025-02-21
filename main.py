@@ -25,7 +25,6 @@ if __name__ == "__main__":
 
         本项目中，route_handlers 在应用运行期间不需要频繁更新且不需要跨进程共享和同步，第三种写法是最合适的。这种方式在进程数量较多的情况下，能有效减少系统的资源消耗
     """
-    import my_test_doc
     from decoratorFunc.getFuncDict import route_handlers # 在主进程中引入 route_handlers
     import_api_func_dict = import_all_functions_in_folder("api_func_set") # 动态引入所有 api 函数
 

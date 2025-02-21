@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b92e00e7-991b-4e64-b918-9872c0b9306c" name="更改" comment="feat: 引入远程模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning_materials/import引入资料.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/learning_materials/import引入资料.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_test_doc.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_test_doc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool_package/remote_importer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool_package/remote_importer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool_package/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool_package/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -517,7 +513,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740051589110</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="feat: 引入远程模块">
+      <option name="closed" value="true" />
+      <created>1740103640361</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1740103640361</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
