@@ -1,7 +1,8 @@
 """
-文件总述:
+文件总述: 引入远程模块
 
-文件详解: 
+文件详解: 通过添加自定义查找器并调用对应的加载器实现远程模块的引入
+        参考资料为 /learning_materials/import引入资料
 
 创建者: 汐琳
 创建时间: 2025/2/20 15:31
@@ -28,10 +29,12 @@ class RemoteMetaFinder(importlib.abc.MetaPathFinder):
     def __init__(self, base_url: str|None="http://localhost:3001/" ):
         self.base_url = base_url
         self.code = None
+        self.fullname = None
 
     def find_spec(self, fullname, path, target=None):
         if fullname and type(fullname) == str and (fullname.startswith("PANDAG") or fullname.startswith("pandag")):
             try:
+                self.fullname = fullname
                 self.code = self.get_code()
             except Exception as e:
                 print(f"加载失败: {str(e)}")
@@ -49,7 +52,8 @@ class RemoteMetaFinder(importlib.abc.MetaPathFinder):
             }
 
             api_url = self.base_url + 'get_serve_module'
-            params = {'module_name': 'test'}
+            name_parts = self.fullname.split('_')
+            params = {'module_name': name_parts[1]}
             url_with_params = api_url + '?' + urllib.parse.urlencode(params)
 
             request = urllib.request.Request(url_with_params, headers=headers)
@@ -58,15 +62,3 @@ class RemoteMetaFinder(importlib.abc.MetaPathFinder):
             with urllib.request.urlopen(request) as response:
                 raw_response = response.read()
                 return json.loads(raw_response)["data"]
-
-# sys.meta_path.insert(0, RemoteMetaFinder())
-#
-# if __name__ == "__main__":
-#     # 尝试导入远程模块（假设服务器存在 remote_module.py）
-#     try:
-#         import PANDAG_fileName as remote_module  # 将通过自定义机制从配置的URL加载
-#
-#         print(remote_module.test())
-#
-#     except Exception as e:
-#         print(f"加载失败: {str(e)}")

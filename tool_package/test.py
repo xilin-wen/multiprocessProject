@@ -6,5 +6,7 @@
 创建者: 汐琳
 创建时间: 2025/2/14 19:44
 """
+import time
 def test():
+    print(time.time())
     return True
