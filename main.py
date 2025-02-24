@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
     # 将自定义的远程模块加载器添加到 sys.meta_path 中
     sys.meta_path.insert(0, RemoteMetaFinder('http://localhost:8765/'))
+    import my_test_doc
 
     """
     这里文件的动态引入和 route_dict 字典的传递有三种用法：
@@ -28,5 +29,5 @@ if __name__ == "__main__":
     from decoratorFunc.getFuncDict import route_handlers # 在主进程中引入 route_handlers
     import_api_func_dict = import_all_functions_in_folder("api_func_set") # 动态引入所有 api 函数
 
-    server_manager = ServerManager(3001, 8888, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
+    server_manager = ServerManager(2111, 2112, route_handlers, import_api_func_dict)  # 创建 ServerManager 实例
     server_manager.start_server()  # 启动服务器
